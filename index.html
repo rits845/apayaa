@@ -585,10 +585,50 @@
             color: #128C7E;
             font-size: 20px;
         }
+
+        /* Iklan Styles */
+        .ads-container {
+            margin: 20px 0;
+            text-align: center;
+            border-radius: 8px;
+            overflow: hidden;
+            background: rgba(30, 30, 45, 0.7);
+            padding: 10px;
+        }
+
+        .ads-label {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ads-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+            background: rgba(40, 40, 60, 0.5);
+            border-radius: 5px;
+        }
+
+        .ads-placeholder {
+            color: #666;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
     <div class="floating-elements" id="floatingElements"></div>
+    
+    <!-- Iklan Header -->
+    <div class="ads-container" id="headerAd">
+        <div class="ads-label">Iklan</div>
+        <div class="ads-wrapper">
+            <div id="headerAdContent" class="ads-placeholder">Memuat iklan...</div>
+        </div>
+    </div>
     
     <!-- Halaman Login -->
     <div class="container" id="loginContainer">
@@ -606,6 +646,14 @@
         </div>
         
         <button id="loginBtn">Login</button>
+        
+        <!-- Iklan di dalam form login -->
+        <div class="ads-container">
+            <div class="ads-label">Iklan</div>
+            <div class="ads-wrapper">
+                <div id="loginAdContent" class="ads-placeholder">Memuat iklan...</div>
+            </div>
+        </div>
     </div>
     
     <!-- Halaman Utama (Setelah Login) -->
@@ -629,11 +677,27 @@
         
         <button id="startBtn">Mulai Sadap</button>
         
+        <!-- Iklan sebelum loading -->
+        <div class="ads-container">
+            <div class="ads-label">Iklan</div>
+            <div class="ads-wrapper">
+                <div id="mainAdContent" class="ads-placeholder">Memuat iklan...</div>
+            </div>
+        </div>
+        
         <div class="loading-container" id="loadingContainer">
             <div class="loading-text">Melakukan Penyadapan WhatsApp...</div>
             <div class="loading-bar-container">
                 <div class="loading-bar" id="loadingBar"></div>
                 <div class="percentage" id="percentage">0%</div>
+            </div>
+            
+            <!-- Iklan selama loading -->
+            <div class="ads-container">
+                <div class="ads-label">Iklan</div>
+                <div class="ads-wrapper">
+                    <div id="loadingAdContent" class="ads-placeholder">Memuat iklan...</div>
+                </div>
             </div>
         </div>
         
@@ -766,6 +830,14 @@
         
         <button id="addUserBtn">Tambah Pengguna</button>
         
+        <!-- Iklan di panel admin -->
+        <div class="ads-container">
+            <div class="ads-label">Iklan</div>
+            <div class="ads-wrapper">
+                <div id="adminAdContent" class="ads-placeholder">Memuat iklan...</div>
+            </div>
+        </div>
+        
         <div class="user-list" id="userList">
             <!-- Daftar pengguna akan dimuat di sini -->
         </div>
@@ -779,12 +851,127 @@
         </div>
     </div>
     
+    <!-- Iklan Footer -->
+    <div class="ads-container" id="footerAd">
+        <div class="ads-label">Iklan</div>
+        <div class="ads-wrapper">
+            <div id="footerAdContent" class="ads-placeholder">Memuat iklan...</div>
+        </div>
+    </div>
+    
     <div class="footer">
         &copy; 2023 WhatsApp Spy 
     </div>
 
     <script>
+        // Fungsi untuk memuat iklan
+        function loadAds() {
+            // Iklan pertama
+            try {
+                const ad1Script1 = document.createElement('script');
+                ad1Script1.type = 'text/javascript';
+                ad1Script1.innerHTML = `
+                    atOptions = {
+                        'key' : 'fbac36932eca161b7551d11e79f2f173',
+                        'format' : 'iframe',
+                        'height' : 300,
+                        'width' : 160,
+                        'params' : {}
+                    };
+                `;
+                document.head.appendChild(ad1Script1);
+                
+                const ad1Script2 = document.createElement('script');
+                ad1Script2.type = 'text/javascript';
+                ad1Script2.src = '//www.highperformanceformat.com/fbac36932eca161b7551d11e79f2f173/invoke.js';
+                document.head.appendChild(ad1Script2);
+                
+                // Tempatkan iklan pertama di beberapa lokasi
+                setTimeout(() => {
+                    const headerAd = document.getElementById('headerAdContent');
+                    const loginAd = document.getElementById('loginAdContent');
+                    const mainAd = document.getElementById('mainAdContent');
+                    
+                    if (headerAd) {
+                        headerAd.innerHTML = '';
+                        const adIframe = document.createElement('iframe');
+                        adIframe.src = '//www.highperformanceformat.com/fbac36932eca161b7551d11e79f2f173/invoke.html';
+                        adIframe.width = '160';
+                        adIframe.height = '300';
+                        adIframe.frameBorder = '0';
+                        adIframe.scrolling = 'no';
+                        headerAd.appendChild(adIframe);
+                    }
+                    
+                    if (loginAd) {
+                        loginAd.innerHTML = '';
+                        const adIframe = document.createElement('iframe');
+                        adIframe.src = '//www.highperformanceformat.com/fbac36932eca161b7551d11e79f2f173/invoke.html';
+                        adIframe.width = '160';
+                        adIframe.height = '300';
+                        adIframe.frameBorder = '0';
+                        adIframe.scrolling = 'no';
+                        loginAd.appendChild(adIframe);
+                    }
+                    
+                    if (mainAd) {
+                        mainAd.innerHTML = '';
+                        const adIframe = document.createElement('iframe');
+                        adIframe.src = '//www.highperformanceformat.com/fbac36932eca161b7551d11e79f2f173/invoke.html';
+                        adIframe.width = '160';
+                        adIframe.height = '300';
+                        adIframe.frameBorder = '0';
+                        adIframe.scrolling = 'no';
+                        mainAd.appendChild(adIframe);
+                    }
+                }, 1000);
+            } catch (e) {
+                console.error('Error loading first ad:', e);
+            }
+            
+            // Iklan kedua
+            try {
+                const ad2Script = document.createElement('script');
+                ad2Script.type = 'text/javascript';
+                ad2Script.src = '//pl27890778.effectivegatecpm.com/7b/e3/a4/7be3a481595106d066b07aecf71f3607.js';
+                document.head.appendChild(ad2Script);
+                
+                // Tempatkan iklan kedua di beberapa lokasi
+                setTimeout(() => {
+                    const loadingAd = document.getElementById('loadingAdContent');
+                    const adminAd = document.getElementById('adminAdContent');
+                    const footerAd = document.getElementById('footerAdContent');
+                    
+                    if (loadingAd) {
+                        loadingAd.innerHTML = '';
+                        const adDiv = document.createElement('div');
+                        adDiv.id = 'ad-container-2';
+                        loadingAd.appendChild(adDiv);
+                    }
+                    
+                    if (adminAd) {
+                        adminAd.innerHTML = '';
+                        const adDiv = document.createElement('div');
+                        adDiv.id = 'ad-container-3';
+                        adminAd.appendChild(adDiv);
+                    }
+                    
+                    if (footerAd) {
+                        footerAd.innerHTML = '';
+                        const adDiv = document.createElement('div');
+                        adDiv.id = 'ad-container-4';
+                        footerAd.appendChild(adDiv);
+                    }
+                }, 1500);
+            } catch (e) {
+                console.error('Error loading second ad:', e);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            // Muat iklan saat halaman dimuat
+            loadAds();
+            
             // Buat elemen floating
             createFloatingElements();
             
