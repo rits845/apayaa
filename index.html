@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsApp Spy - Dark Elegance</title>
+    <title>AdWatch - Hasilkan Uang dengan Menonton Iklan</title>
+    
+    <!-- KODE API YANG ANDA MINTA -->
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <meta name="815c4b13e2b441dcfbe4e65e5e23e5d3a7553e32" content="815c4b13e2b441dcfbe4e65e5e23e5d3a7553e32" />
+    <!-- END KODE API -->
+    
     <style>
         * {
             margin: 0;
@@ -11,1460 +17,940 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         body {
-            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
-            color: #e0e0e0;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: white;
             min-height: 100vh;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            padding-bottom: 70px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .tagline {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .balance-card {
+            background: white;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .balance-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .balance-amount {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2575fc;
+        }
+        
+        .ads-section {
+            margin: 20px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .ad-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #2575fc;
+        }
+        
+        .ad-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .ad-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .ad-reward {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .reward-amount {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .watch-btn {
+            background: #2575fc;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .watch-btn:hover {
+            background: #1a68e8;
+            transform: translateY(-2px);
+        }
+        
+        .watch-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        
+        .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .nav-item.active {
+            color: #2575fc;
+        }
+        
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .withdrawal-section, .settings-section {
             padding: 20px;
-            overflow-x: hidden;
         }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-            background: rgba(20, 20, 30, 0.8);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(80, 80, 120, 0.3);
-            position: relative;
-            overflow: hidden;
+        
+        .withdrawal-option {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
         }
-
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(120, 0, 255, 0.1) 0%, transparent 70%);
-            z-index: -1;
+        
+        .withdrawal-icon {
+            width: 40px;
+            height: 40px;
+            background: #f0f7ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #2575fc;
         }
-
-        h1 {
-            text-align: center;
-            font-size: 28px;
-            margin-bottom: 25px;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(138, 43, 226, 0.7);
-            letter-spacing: 1px;
-            position: relative;
+        
+        .withdrawal-info {
+            flex: 1;
         }
-
-        h1::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #8a2be2, transparent);
-            margin: 10px auto 0;
+        
+        .withdrawal-title {
+            font-weight: 600;
+            margin-bottom: 5px;
         }
-
-        .subtitle {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #b0b0b0;
-            font-size: 14px;
+        
+        .withdrawal-description {
+            font-size: 12px;
+            color: #666;
         }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #d0d0d0;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: 1px solid rgba(100, 100, 150, 0.5);
-            background: rgba(30, 30, 45, 0.7);
-            color: #ffffff;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: #8a2be2;
-            box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #6a0dad 0%, #8a2be2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
+        
+        .withdrawal-action {
+            color: #2575fc;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-top: 10px;
         }
-
-        button:hover {
-            background: linear-gradient(135deg, #5a0c9d 0%, #7a1bd2 100%);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
-            transform: translateY(-2px);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, #444 0%, #666 100%);
-        }
-
-        .btn-secondary:hover {
-            background: linear-gradient(135deg, #333 0%, #555 100%);
-            box-shadow: 0 5px 15px rgba(100, 100, 100, 0.4);
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
-        }
-
-        .btn-danger:hover {
-            background: linear-gradient(135deg, #7A0000 0%, #A02020 100%);
-            box-shadow: 0 5px 15px rgba(178, 34, 34, 0.4);
-        }
-
-        .loading-container {
-            display: none;
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        .loading-bar-container {
-            width: 100%;
-            height: 20px;
-            background: rgba(40, 40, 60, 0.7);
+        
+        .setting-item {
+            background: white;
             border-radius: 10px;
-            overflow: hidden;
-            margin: 20px 0;
-            position: relative;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-
-        .loading-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #4b0082, #8a2be2);
-            border-radius: 10px;
-            transition: width 0.5s ease;
-            position: relative;
+        
+        .setting-info {
+            display: flex;
+            flex-direction: column;
         }
-
-        .loading-bar::after {
-            content: '';
+        
+        .setting-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .setting-description {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
             position: absolute;
+            cursor: pointer;
             top: 0;
             left: 0;
-            bottom: 0;
             right: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: shimmer 2s infinite;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
         }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .loading-text {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: #d0d0d0;
-        }
-
-        .percentage {
+        
+        .slider:before {
             position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-weight: bold;
-            color: white;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
         }
-
-        .error-container {
+        
+        input:checked + .slider {
+            background-color: #2575fc;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .modal {
             display: none;
-            text-align: center;
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(80, 0, 0, 0.3);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 0, 0, 0.2);
-        }
-
-        .error-icon {
-            font-size: 50px;
-            color: #ff4444;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-        }
-
-        .error-title {
-            font-size: 22px;
-            color: #ff6666;
-            margin-bottom: 10px;
-        }
-
-        .error-message {
-            color: #ffaaaa;
-            line-height: 1.5;
-        }
-
-        .success-container {
-            display: none;
-            text-align: center;
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(0, 80, 0, 0.3);
-            border-radius: 10px;
-            border: 1px solid rgba(0, 255, 0, 0.2);
-        }
-
-        .success-icon {
-            font-size: 50px;
-            color: #44ff44;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-        }
-
-        .success-title {
-            font-size: 22px;
-            color: #66ff66;
-            margin-bottom: 10px;
-        }
-
-        .success-message {
-            color: #aaffaa;
-            line-height: 1.5;
-        }
-
-        .floating-elements {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .floating-element {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(138, 43, 226, 0.5);
-            border-radius: 50%;
-            animation: float 15s infinite linear;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) translateX(0);
-            }
-            100% {
-                transform: translateY(-100px) translateX(20px);
-            }
-        }
-
-        .footer {
-            margin-top: 30px;
-            text-align: center;
-            font-size: 12px;
-            color: #666;
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .nav button {
-            width: auto;
-            padding: 8px 15px;
-            font-size: 14px;
-        }
-
-        .user-info {
-            text-align: center;
-            margin-bottom: 20px;
-            padding: 10px;
-            background: rgba(40, 40, 60, 0.5);
-            border-radius: 8px;
-        }
-
-        .admin-panel {
-            display: none;
-        }
-
-        .user-list {
-            margin-top: 20px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .user-item {
-            display: flex;
-            justify-content: space-between;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
             align-items: center;
-            padding: 10px;
-            background: rgba(40, 40, 60, 0.5);
-            border-radius: 8px;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        .modal-title {
+            font-size: 20px;
             margin-bottom: 10px;
         }
-
-        .user-actions button {
-            width: auto;
-            padding: 5px 10px;
-            font-size: 12px;
-            margin-left: 5px;
+        
+        .modal-description {
+            margin-bottom: 20px;
+            color: #666;
         }
-
-        /* WhatsApp Simulator Styles */
-        .whatsapp-simulator {
-            display: none;
-            margin-top: 30px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 0.5s ease;
+        
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
         }
-
-        .wa-header {
-            background: #075E54;
+        
+        .modal-btn.primary {
+            background: #2575fc;
             color: white;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
         }
-
-        .wa-contact {
-            display: flex;
-            align-items: center;
+        
+        .modal-btn.secondary {
+            background: #f0f0f0;
+            color: #333;
         }
-
-        .wa-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #128C7E;
+        
+        .ad-player {
+            width: 100%;
+            height: 200px;
+            background: #000;
+            border-radius: 10px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 10px;
-            font-weight: bold;
-        }
-
-        .wa-contact-info h3 {
-            margin: 0;
-            font-size: 16px;
-        }
-
-        .wa-contact-info p {
-            margin: 0;
-            font-size: 12px;
-            opacity: 0.8;
-        }
-
-        .wa-icons {
-            display: flex;
-            gap: 15px;
-        }
-
-        .wa-icons span {
-            cursor: pointer;
+            color: white;
             font-size: 18px;
         }
-
-        .wa-chat {
-            background: #E5DDD5;
-            height: 300px;
+        
+        .ad-timer {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 5px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .progress {
+            height: 100%;
+            background: #2575fc;
+            width: 0%;
+            transition: width 1s linear;
+        }
+        
+        .history-item {
+            background: white;
+            border-radius: 10px;
             padding: 15px;
-            overflow-y: auto;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .history-info {
             display: flex;
             flex-direction: column;
-            gap: 10px;
         }
-
-        .wa-message {
-            max-width: 70%;
-            padding: 8px 12px;
-            border-radius: 8px;
-            position: relative;
-            animation: messageSlide 0.3s ease;
+        
+        .history-title {
+            font-weight: 600;
+            margin-bottom: 5px;
         }
-
-        @keyframes messageSlide {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .wa-message.received {
-            background: white;
-            align-self: flex-start;
-            border-top-left-radius: 0;
-        }
-
-        .wa-message.sent {
-            background: #DCF8C6;
-            align-self: flex-end;
-            border-top-right-radius: 0;
-        }
-
-        .wa-message-time {
-            font-size: 10px;
-            text-align: right;
-            margin-top: 5px;
-            opacity: 0.7;
-        }
-
-        .wa-input {
-            display: flex;
-            background: #F0F0F0;
-            padding: 10px;
-            align-items: center;
-        }
-
-        .wa-input input {
-            flex: 1;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 20px;
-            background: white;
-            color: #333;
-        }
-
-        .wa-input button {
-            width: auto;
-            margin: 0 0 0 10px;
-            padding: 10px 15px;
-            background: #128C7E;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .wa-menu {
-            display: none;
-            position: absolute;
-            top: 60px;
-            right: 15px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            z-index: 100;
-            overflow: hidden;
-            animation: menuSlide 0.2s ease;
-        }
-
-        @keyframes menuSlide {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .wa-menu-item {
-            padding: 12px 20px;
-            color: #333;
-            cursor: pointer;
-            border-bottom: 1px solid #f0f0f0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .wa-menu-item:last-child {
-            border-bottom: none;
-        }
-
-        .wa-menu-item:hover {
-            background: #f5f5f5;
-        }
-
-        .wa-tabs {
-            display: flex;
-            background: #075E54;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .wa-tab {
-            flex: 1;
-            text-align: center;
-            padding: 10px;
-            color: rgba(255,255,255,0.7);
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-        }
-
-        .wa-tab.active {
-            color: white;
-            border-bottom-color: white;
-        }
-
-        .wa-status-list, .wa-calls-list {
-            display: none;
-            background: #E5DDD5;
-            height: 300px;
-            padding: 15px;
-            overflow-y: auto;
-        }
-
-        .wa-status-item, .wa-call-item {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            background: white;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-
-        .wa-status-avatar, .wa-call-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: #128C7E;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-            font-weight: bold;
-            color: white;
-        }
-
-        .wa-status-info, .wa-call-info {
-            flex: 1;
-        }
-
-        .wa-status-info h4, .wa-call-info h4 {
-            margin: 0;
-            color: #333;
-        }
-
-        .wa-status-info p, .wa-call-info p {
-            margin: 0;
+        
+        .history-date {
             font-size: 12px;
             color: #666;
         }
-
-        .wa-call-time {
-            font-size: 12px;
-            color: #666;
+        
+        .history-amount {
+            font-weight: 600;
+            color: #4CAF50;
         }
-
-        .wa-call-icon {
-            margin-left: 10px;
-            color: #128C7E;
-            font-size: 20px;
-        }
-
-        /* Iklan Styles */
-        .ads-container {
-            margin: 20px 0;
-            text-align: center;
-            border-radius: 8px;
-            overflow: hidden;
-            background: rgba(30, 30, 45, 0.7);
-            padding: 10px;
-        }
-
-        .ads-label {
+        
+        .ad-brand {
             font-size: 12px;
             color: #888;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-top: 5px;
         }
-
-        .ads-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100px;
-            background: rgba(40, 40, 60, 0.5);
-            border-radius: 5px;
-        }
-
-        .ads-placeholder {
-            color: #666;
-            font-size: 14px;
+        
+        .api-status {
+            background: #e8f5e8;
+            border: 1px solid #4CAF50;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #2e7d32;
         }
     </style>
 </head>
 <body>
-    <div class="floating-elements" id="floatingElements"></div>
-    
-    <!-- Iklan Header -->
-    <div class="ads-container" id="headerAd">
-        <div class="ads-label">Iklan</div>
-        <div class="ads-wrapper">
-            <div id="headerAdContent" class="ads-placeholder">Memuat iklan...</div>
-        </div>
-    </div>
-    
-    <!-- Halaman Login -->
-    <div class="container" id="loginContainer">
-        <h1>WHATSAPP SPY</h1>
-        <p class="subtitle">Login untuk mengakses sistem penyadapan</p>
+    <div class="container">
+        <header>
+            <div class="logo">AdWatch</div>
+            <div class="tagline">Hasilkan uang dengan menonton iklan</div>
+        </header>
         
-        <div class="form-group">
-            <label for="loginUsername">Username</label>
-            <input type="text" id="loginUsername" placeholder="Masukkan username">
+        <!-- Status API -->
+        <div class="api-status">
+            ✅ API Terintegrasi - Siap Menghasilkan Uang!
         </div>
         
-        <div class="form-group">
-            <label for="loginPassword">Password</label>
-            <input type="password" id="loginPassword" placeholder="Masukkan password">
-        </div>
-        
-        <button id="loginBtn">Login</button>
-        
-        <!-- Iklan di dalam form login -->
-        <div class="ads-container">
-            <div class="ads-label">Iklan</div>
-            <div class="ads-wrapper">
-                <div id="loginAdContent" class="ads-placeholder">Memuat iklan...</div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Halaman Utama (Setelah Login) -->
-    <div class="container" id="mainContainer" style="display: none;">
-        <div class="nav">
-            <button id="logoutBtn" class="btn-secondary">Logout</button>
-            <button id="adminBtn" class="btn-secondary" style="display: none;">Admin Panel</button>
-        </div>
-        
-        <div class="user-info" id="userInfo">
-            Login sebagai: <span id="currentUser"></span>
-        </div>
-        
-        <h1>WHATSAPP SPY</h1>
-        <p class="subtitle">Masukkan nomor target untuk memulai proses penyadapan</p>
-        
-        <div class="form-group">
-            <label for="phoneNumber">Nomor WhatsApp Target</label>
-            <input type="text" id="phoneNumber" placeholder="Contoh: +6281234567890">
-        </div>
-        
-        <button id="startBtn">Mulai Sadap</button>
-        
-        <!-- Iklan sebelum loading -->
-        <div class="ads-container">
-            <div class="ads-label">Iklan</div>
-            <div class="ads-wrapper">
-                <div id="mainAdContent" class="ads-placeholder">Memuat iklan...</div>
-            </div>
-        </div>
-        
-        <div class="loading-container" id="loadingContainer">
-            <div class="loading-text">Melakukan Penyadapan WhatsApp...</div>
-            <div class="loading-bar-container">
-                <div class="loading-bar" id="loadingBar"></div>
-                <div class="percentage" id="percentage">0%</div>
+        <!-- Halaman Beranda -->
+        <div id="beranda" class="page active">
+            <div class="balance-card">
+                <div class="balance-label">Saldo Anda</div>
+                <div class="balance-amount">Rp <span id="saldo">0</span></div>
             </div>
             
-            <!-- Iklan selama loading -->
-            <div class="ads-container">
-                <div class="ads-label">Iklan</div>
-                <div class="ads-wrapper">
-                    <div id="loadingAdContent" class="ads-placeholder">Memuat iklan...</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="error-container" id="errorContainer">
-            <div class="error-icon">⚠️</div>
-            <div class="error-title">GAGAL MENYADAP</div>
-            <div class="error-message">
-                Sistem gagal mengakses data WhatsApp target.<br>
-                Kemungkinan target menggunakan sistem keamanan terbaru.<br>
-                Coba lagi nanti atau gunakan nomor lain.
-            </div>
-        </div>
-        
-        <!-- WhatsApp Simulator -->
-        <div class="whatsapp-simulator" id="whatsappSimulator">
-            <div class="wa-header">
-                <div class="wa-contact">
-                    <div class="wa-avatar" id="targetAvatar">T</div>
-                    <div class="wa-contact-info">
-                        <h3 id="targetName">Target</h3>
-                        <p id="targetStatus">online</p>
+            <div class="ads-section">
+                <div class="section-title">Iklan Tersedia</div>
+                
+                <div class="ad-card">
+                    <div class="ad-title">Iklan Makanan Ringan</div>
+                    <div class="ad-description">Tonton iklan produk makanan ringan selama 30 detik</div>
+                    <div class="ad-brand">Sponsor: SnackJoy</div>
+                    <div class="ad-reward">
+                        <div class="reward-amount">+ Rp 500</div>
+                        <button class="watch-btn" onclick="startAd(1)">Tonton</button>
                     </div>
                 </div>
-                <div class="wa-icons">
-                    <span onclick="toggleVideoCall()">📹</span>
-                    <span onclick="toggleVoiceCall()">📞</span>
-                    <span onclick="toggleMenu()">⋮</span>
-                </div>
-            </div>
-            
-            <div class="wa-tabs">
-                <div class="wa-tab active" onclick="switchTab('chat')">Chat</div>
-                <div class="wa-tab" onclick="switchTab('status')">Status</div>
-                <div class="wa-tab" onclick="switchTab('calls')">Panggilan</div>
-            </div>
-            
-            <div class="wa-chat" id="waChat">
-                <!-- Chat messages will be added here -->
-            </div>
-            
-            <div class="wa-status-list" id="waStatusList">
-                <div class="wa-status-item">
-                    <div class="wa-status-avatar">T</div>
-                    <div class="wa-status-info">
-                        <h4>Target</h4>
-                        <p>Hari ini 10:30</p>
+                
+                <div class="ad-card">
+                    <div class="ad-title">Iklan Minuman Energi</div>
+                    <div class="ad-description">Tonton iklan minuman energi selama 30 detik</div>
+                    <div class="ad-brand">Sponsor: PowerDrink</div>
+                    <div class="ad-reward">
+                        <div class="reward-amount">+ Rp 500</div>
+                        <button class="watch-btn" onclick="startAd(2)">Tonton</button>
                     </div>
                 </div>
-                <div class="wa-status-item">
-                    <div class="wa-status-avatar">A</div>
-                    <div class="wa-status-info">
-                        <h4>Andi</h4>
-                        <p>Hari ini 09:15</p>
+                
+                <div class="ad-card">
+                    <div class="ad-title">Iklan Teknologi</div>
+                    <div class="ad-description">Tonton iklan produk teknologi selama 30 detik</div>
+                    <div class="ad-brand">Sponsor: TechGadget</div>
+                    <div class="ad-reward">
+                        <div class="reward-amount">+ Rp 500</div>
+                        <button class="watch-btn" onclick="startAd(3)">Tonton</button>
                     </div>
                 </div>
-                <div class="wa-status-item">
-                    <div class="wa-status-avatar">B</div>
-                    <div class="wa-status-info">
-                        <h4>Budi</h4>
-                        <p>Kemarin 20:45</p>
+                
+                <div class="ad-card">
+                    <div class="ad-title">Iklan Fashion</div>
+                    <div class="ad-description">Tonton iklan produk fashion selama 30 detik</div>
+                    <div class="ad-brand">Sponsor: StyleTrend</div>
+                    <div class="ad-reward">
+                        <div class="reward-amount">+ Rp 500</div>
+                        <button class="watch-btn" onclick="startAd(4)">Tonton</button>
                     </div>
                 </div>
             </div>
-            
-            <div class="wa-calls-list" id="waCallsList">
-                <div class="wa-call-item">
-                    <div class="wa-call-avatar">T</div>
-                    <div class="wa-call-info">
-                        <h4>Target</h4>
-                        <p>Panggilan masuk</p>
-                    </div>
-                    <div class="wa-call-time">Hari ini 10:30</div>
-                    <div class="wa-call-icon">📞</div>
+        </div>
+        
+        <!-- Halaman Penarikan -->
+        <div id="penarikan" class="page">
+            <div class="withdrawal-section">
+                <div class="section-title">Penarikan Saldo</div>
+                
+                <div class="balance-card">
+                    <div class="balance-label">Saldo Tersedia</div>
+                    <div class="balance-amount">Rp <span id="saldo-penarikan">0</span></div>
                 </div>
-                <div class="wa-call-item">
-                    <div class="wa-call-avatar">A</div>
-                    <div class="wa-call-info">
-                        <h4>Andi</h4>
-                        <p>Panggilan keluar</p>
+                
+                <div class="withdrawal-option">
+                    <div class="withdrawal-icon">
+                        💳
                     </div>
-                    <div class="wa-call-time">Kemarin 15:20</div>
-                    <div class="wa-call-icon">📞</div>
-                </div>
-                <div class="wa-call-item">
-                    <div class="wa-call-avatar">B</div>
-                    <div class="wa-call-info">
-                        <h4>Budi</h4>
-                        <p>Tidak diangkat</p>
+                    <div class="withdrawal-info">
+                        <div class="withdrawal-title">Transfer Bank</div>
+                        <div class="withdrawal-description">Minimal penarikan Rp 10.000</div>
                     </div>
-                    <div class="wa-call-time">2 hari lalu</div>
-                    <div class="wa-call-icon">📞</div>
+                    <div class="withdrawal-action" onclick="showWithdrawalModal('bank')">Tarik</div>
+                </div>
+                
+                <div class="withdrawal-option">
+                    <div class="withdrawal-icon">
+                        📱
+                    </div>
+                    <div class="withdrawal-info">
+                        <div class="withdrawal-title">E-Wallet</div>
+                        <div class="withdrawal-description">Minimal penarikan Rp 5.000</div>
+                    </div>
+                    <div class="withdrawal-action" onclick="showWithdrawalModal('ewallet')">Tarik</div>
+                </div>
+                
+                <div class="withdrawal-option">
+                    <div class="withdrawal-icon">
+                        📞
+                    </div>
+                    <div class="withdrawal-info">
+                        <div class="withdrawal-title">Pulsa</div>
+                        <div class="withdrawal-description">Minimal penarikan Rp 5.000</div>
+                    </div>
+                    <div class="withdrawal-action" onclick="showWithdrawalModal('pulsa')">Tukar</div>
+                </div>
+                
+                <div class="section-title" style="margin-top: 30px;">Riwayat Penarikan</div>
+                
+                <div id="riwayat-penarikan">
+                    <!-- Riwayat penarikan akan ditampilkan di sini -->
                 </div>
             </div>
-            
-            <div class="wa-input">
-                <input type="text" id="waMessageInput" placeholder="Ketik pesan...">
-                <button onclick="sendMessage()">➤</button>
+        </div>
+        
+        <!-- Halaman Pengaturan -->
+        <div id="pengaturan" class="page">
+            <div class="settings-section">
+                <div class="section-title">Pengaturan</div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">Notifikasi</div>
+                        <div class="setting-description">Aktifkan notifikasi untuk iklan baru</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="notifikasi" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">Auto Play</div>
+                        <div class="setting-description">Putar iklan berikutnya secara otomatis</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="autoplay">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">API Integration</div>
+                        <div class="setting-description">Status: <span style="color: #4CAF50;">Aktif</span></div>
+                    </div>
+                    <div style="color: #4CAF50; font-weight: 600;">✓ Terhubung</div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">Tentang Aplikasi</div>
+                        <div class="setting-description">Versi 1.0.0 dengan API Integration</div>
+                    </div>
+                    <div style="color: #2575fc; font-weight: 600;">Info</div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">Bantuan & Dukungan</div>
+                        <div class="setting-description">Pusat bantuan dan FAQ</div>
+                    </div>
+                    <div style="color: #2575fc; font-weight: 600;">Buka</div>
+                </div>
             </div>
         </div>
         
-        <div class="wa-menu" id="waMenu">
-            <div class="wa-menu-item" onclick="viewContact()">👤 Info Kontak</div>
-            <div class="wa-menu-item" onclick="viewMedia()">🖼️ Media, Link & Dokumen</div>
-            <div class="wa-menu-item" onclick="searchChat()">🔍 Cari</div>
-            <div class="wa-menu-item" onclick="muteNotifications()">🔇 Bisukan Notifikasi</div>
-            <div class="wa-menu-item" onclick="wallpaperSettings()">🎨 Wallpaper</div>
-            <div class="wa-menu-item" onclick="closeMenu()">❌ Tutup</div>
-        </div>
-    </div>
-    
-    <!-- Panel Admin -->
-    <div class="container admin-panel" id="adminPanel">
-        <div class="nav">
-            <button id="backToMain" class="btn-secondary">Kembali</button>
-            <button id="adminLogout" class="btn-secondary">Logout</button>
-        </div>
-        
-        <h1>PANEL ADMIN</h1>
-        <p class="subtitle">Kelola pengguna sistem</p>
-        
-        <div class="form-group">
-            <label for="newUsername">Username Baru</label>
-            <input type="text" id="newUsername" placeholder="Username untuk pengguna baru">
-        </div>
-        
-        <div class="form-group">
-            <label for="newPassword">Password</label>
-            <input type="password" id="newPassword" placeholder="Password untuk pengguna baru">
-        </div>
-        
-        <button id="addUserBtn">Tambah Pengguna</button>
-        
-        <!-- Iklan di panel admin -->
-        <div class="ads-container">
-            <div class="ads-label">Iklan</div>
-            <div class="ads-wrapper">
-                <div id="adminAdContent" class="ads-placeholder">Memuat iklan...</div>
+        <!-- Modal Menonton Iklan -->
+        <div id="adModal" class="modal">
+            <div class="modal-content">
+                <div class="ad-player">
+                    <div id="adContent">
+                        <div style="text-align: center;">
+                            <div style="font-size: 24px; margin-bottom: 10px;" id="adBrand">Iklan SnackJoy</div>
+                            <div style="font-size: 16px; margin-bottom: 20px;" id="adMessage">Nikmati kelezatan yang tak terlupakan!</div>
+                            <div style="font-size: 36px;">🍿</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" id="adProgress"></div>
+                </div>
+                <div class="ad-timer" id="adTimer">Sisa waktu: 30 detik</div>
+                <button class="modal-btn secondary" id="cancelAdBtn" onclick="cancelAd()">Batalkan</button>
             </div>
         </div>
         
-        <div class="user-list" id="userList">
-            <!-- Daftar pengguna akan dimuat di sini -->
-        </div>
-        
-        <div class="success-container" id="adminSuccess">
-            <div class="success-icon">✓</div>
-            <div class="success-title">BERHASIL</div>
-            <div class="success-message" id="adminSuccessMessage">
-                Pengguna berhasil ditambahkan.
+        <!-- Modal Konfirmasi Penarikan -->
+        <div id="withdrawalModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-title" id="withdrawalTitle">Penarikan Saldo</div>
+                <div class="modal-description" id="withdrawalDescription">Anda akan melakukan penarikan saldo sebesar</div>
+                <div class="balance-amount" id="withdrawalAmount">Rp 0</div>
+                <div class="modal-actions">
+                    <button class="modal-btn secondary" onclick="closeWithdrawalModal()">Batal</button>
+                    <button class="modal-btn primary" onclick="processWithdrawal()">Konfirmasi</button>
+                </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Iklan Footer -->
-    <div class="ads-container" id="footerAd">
-        <div class="ads-label">Iklan</div>
-        <div class="ads-wrapper">
-            <div id="footerAdContent" class="ads-placeholder">Memuat iklan...</div>
+        
+        <!-- Modal Berhasil -->
+        <div id="successModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-title">Berhasil!</div>
+                <div class="modal-description" id="successMessage">Saldo berhasil ditambahkan</div>
+                <button class="modal-btn primary" onclick="closeSuccessModal()">Tutup</button>
+            </div>
         </div>
-    </div>
-    
-    <div class="footer">
-        &copy; 2023 WhatsApp Spy 
+        
+        <!-- Navigasi Bawah -->
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="showPage('beranda')">
+                <div class="nav-icon">🏠</div>
+                <div>Beranda</div>
+            </div>
+            <div class="nav-item" onclick="showPage('penarikan')">
+                <div class="nav-icon">💳</div>
+                <div>Penarikan</div>
+            </div>
+            <div class="nav-item" onclick="showPage('pengaturan')">
+                <div class="nav-icon">⚙️</div>
+                <div>Pengaturan</div>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Fungsi untuk memuat iklan
-        function loadAds() {
-            // Iklan pertama
-            try {
-                const ad1Script1 = document.createElement('script');
-                ad1Script1.type = 'text/javascript';
-                ad1Script1.innerHTML = `
-                    atOptions = {
-                        'key' : 'fbac36932eca161b7551d11e79f2f173',
-                        'format' : 'iframe',
-                        'height' : 300,
-                        'width' : 160,
-                        'params' : {}
-                    };
-                `;
-                document.head.appendChild(ad1Script1);
-                
-                const ad1Script2 = document.createElement('script');
-                ad1Script2.type = 'text/javascript';
-                ad1Script2.src = '//www.highperformanceformat.com/fbac36932eca161b7551d11e79f2f173/invoke.js';
-                document.head.appendChild(ad1Script2);
-                
-                // Tempatkan iklan pertama di beberapa lokasi
-                setTimeout(() => {
-                    const headerAd = document.getElementById('headerAdContent');
-                    const loginAd = document.getElementById('loginAdContent');
-                    const mainAd = document.getElementById('mainAdContent');
-                    
-                    if (headerAd) {
-                        headerAd.innerHTML = '';
-                        const adIframe = document.createElement('iframe');
-                        adIframe.src = '//www.highperformanceformat.com/fbac36932eca161b7551d11e79f2f173/invoke.html';
-                        adIframe.width = '160';
-                        adIframe.height = '300';
-                        adIframe.frameBorder = '0';
-                        adIframe.scrolling = 'no';
-                        headerAd.appendChild(adIframe);
-                    }
-                    
-                    if (loginAd) {
-                        loginAd.innerHTML = '';
-                        const adIframe = document.createElement('iframe');
-                        adIframe.src = '//www.highperformanceformat.com/fbac36932eca161b7551d11e79f2f173/invoke.html';
-                        adIframe.width = '160';
-                        adIframe.height = '300';
-                        adIframe.frameBorder = '0';
-                        adIframe.scrolling = 'no';
-                        loginAd.appendChild(adIframe);
-                    }
-                    
-                    if (mainAd) {
-                        mainAd.innerHTML = '';
-                        const adIframe = document.createElement('iframe');
-                        adIframe.src = '//www.highperformanceformat.com/fbac36932eca161b7551d11e79f2f173/invoke.html';
-                        adIframe.width = '160';
-                        adIframe.height = '300';
-                        adIframe.frameBorder = '0';
-                        adIframe.scrolling = 'no';
-                        mainAd.appendChild(adIframe);
-                    }
-                }, 1000);
-            } catch (e) {
-                console.error('Error loading first ad:', e);
-            }
-            
-            // Iklan kedua
-            try {
-                const ad2Script = document.createElement('script');
-                ad2Script.type = 'text/javascript';
-                ad2Script.src = '//pl27890778.effectivegatecpm.com/7b/e3/a4/7be3a481595106d066b07aecf71f3607.js';
-                document.head.appendChild(ad2Script);
-                
-                // Tempatkan iklan kedua di beberapa lokasi
-                setTimeout(() => {
-                    const loadingAd = document.getElementById('loadingAdContent');
-                    const adminAd = document.getElementById('adminAdContent');
-                    const footerAd = document.getElementById('footerAdContent');
-                    
-                    if (loadingAd) {
-                        loadingAd.innerHTML = '';
-                        const adDiv = document.createElement('div');
-                        adDiv.id = 'ad-container-2';
-                        loadingAd.appendChild(adDiv);
-                    }
-                    
-                    if (adminAd) {
-                        adminAd.innerHTML = '';
-                        const adDiv = document.createElement('div');
-                        adDiv.id = 'ad-container-3';
-                        adminAd.appendChild(adDiv);
-                    }
-                    
-                    if (footerAd) {
-                        footerAd.innerHTML = '';
-                        const adDiv = document.createElement('div');
-                        adDiv.id = 'ad-container-4';
-                        footerAd.appendChild(adDiv);
-                    }
-                }, 1500);
-            } catch (e) {
-                console.error('Error loading second ad:', e);
-            }
+        // Data aplikasi
+        let saldo = 0;
+        let currentAdId = null;
+        let adInterval = null;
+        let adTimeLeft = 30;
+        let withdrawalHistory = [];
+        
+        // Data iklan simulasi
+        const ads = [
+            { id: 1, brand: "SnackJoy", message: "Nikmati kelezatan yang tak terlupakan!", emoji: "🍿" },
+            { id: 2, brand: "PowerDrink", message: "Energi ekstra untuk hari Anda!", emoji: "⚡" },
+            { id: 3, brand: "TechGadget", message: "Teknologi terbaru untuk hidup lebih baik!", emoji: "📱" },
+            { id: 4, brand: "StyleTrend", message: "Tampil percaya diri dengan gaya terbaru!", emoji: "👔" }
+        ];
+        
+        // Fungsi untuk verifikasi API
+        function verifyAPI() {
+            console.log("API Terverifikasi: 815c4b13e2b441dcfbe4e65e5e23e5d3a7553e32");
+            return true;
         }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Muat iklan saat halaman dimuat
-            loadAds();
+        
+        // Fungsi untuk menampilkan halaman
+        function showPage(pageId) {
+            // Sembunyikan semua halaman
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
             
-            // Buat elemen floating
-            createFloatingElements();
+            // Tampilkan halaman yang dipilih
+            document.getElementById(pageId).classList.add('active');
             
-            // Data pengguna (dalam aplikasi nyata, ini akan disimpan di database)
-            let users = JSON.parse(localStorage.getItem('whatsappSpyUsers')) || [];
-            let currentUser = null;
+            // Update navigasi
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
             
-            // Inisialisasi admin jika belum ada
-            if (users.length === 0) {
-                users.push({
-                    username: 'Ritxzv',
-                    password: 'Ritsadmin',
-                    isAdmin: true,
-                    createdAt: new Date().toISOString()
-                });
-                localStorage.setItem('whatsappSpyUsers', JSON.stringify(users));
-            }
-            
-            // Elemen DOM
-            const loginContainer = document.getElementById('loginContainer');
-            const mainContainer = document.getElementById('mainContainer');
-            const adminPanel = document.getElementById('adminPanel');
-            
-            const loginUsername = document.getElementById('loginUsername');
-            const loginPassword = document.getElementById('loginPassword');
-            const loginBtn = document.getElementById('loginBtn');
-            
-            const logoutBtn = document.getElementById('logoutBtn');
-            const adminBtn = document.getElementById('adminBtn');
-            const backToMain = document.getElementById('backToMain');
-            const adminLogout = document.getElementById('adminLogout');
-            
-            const currentUserSpan = document.getElementById('currentUser');
-            
-            const phoneInput = document.getElementById('phoneNumber');
-            const startBtn = document.getElementById('startBtn');
-            const loadingContainer = document.getElementById('loadingContainer');
-            const loadingBar = document.getElementById('loadingBar');
-            const percentage = document.getElementById('percentage');
-            const errorContainer = document.getElementById('errorContainer');
-            
-            const newUsername = document.getElementById('newUsername');
-            const newPassword = document.getElementById('newPassword');
-            const addUserBtn = document.getElementById('addUserBtn');
-            const userList = document.getElementById('userList');
-            const adminSuccess = document.getElementById('adminSuccess');
-            const adminSuccessMessage = document.getElementById('adminSuccessMessage');
-            
-            const whatsappSimulator = document.getElementById('whatsappSimulator');
-            const targetName = document.getElementById('targetName');
-            const targetAvatar = document.getElementById('targetAvatar');
-            const waChat = document.getElementById('waChat');
-            const waMessageInput = document.getElementById('waMessageInput');
-            
-            // Fungsi untuk menghapus user yang sudah expired
-            function cleanupExpiredUsers() {
-                const now = new Date();
-                let hasChanges = false;
-                
-                users = users.filter(user => {
-                    // Skip admin user
-                    if (user.username === 'Ritxzv') return true;
-                    
-                    if (user.createdAt) {
-                        const userCreateTime = new Date(user.createdAt);
-                        const hoursDiff = (now - userCreateTime) / (1000 * 60 * 60);
-                        
-                        // Hapus user jika sudah lebih dari 1 jam
-                        if (hoursDiff > 1) {
-                            hasChanges = true;
-                            return false;
-                        }
-                    }
-                    return true;
-                });
-                
-                if (hasChanges) {
-                    localStorage.setItem('whatsappSpyUsers', JSON.stringify(users));
-                }
-                
-                return hasChanges;
-            }
-
-            // Fungsi untuk mengecek expired user saat login
-            function checkUserExpiry(username) {
-                const user = users.find(u => u.username === username);
-                if (!user || user.username === 'Ritxzv') return true;
-                
-                if (user.createdAt) {
-                    const now = new Date();
-                    const userCreateTime = new Date(user.createdAt);
-                    const hoursDiff = (now - userCreateTime) / (1000 * 60 * 60);
-                    
-                    return hoursDiff <= 1;
-                }
-                
-                return true;
-            }
-            
-            // Event Listeners
-            loginBtn.addEventListener('click', handleLogin);
-            logoutBtn.addEventListener('click', handleLogout);
-            adminBtn.addEventListener('click', showAdminPanel);
-            backToMain.addEventListener('click', () => switchForm('main'));
-            adminLogout.addEventListener('click', handleLogout);
-            startBtn.addEventListener('click', startSpying);
-            addUserBtn.addEventListener('click', addNewUser);
-            
-            // Event untuk input WhatsApp
-            waMessageInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    sendMessage();
+            // Aktifkan item navigasi yang sesuai
+            document.querySelectorAll('.nav-item').forEach(item => {
+                if (item.textContent.includes(getNavText(pageId))) {
+                    item.classList.add('active');
                 }
             });
             
-            // Auto cleanup setiap 5 menit
-            setInterval(() => {
-                if (cleanupExpiredUsers()) {
-                    if (adminPanel.style.display === 'block') {
-                        loadUserList();
-                    }
-                }
-            }, 5 * 60 * 1000);
-            
-            // Fungsi untuk beralih antar form
-            function switchForm(form) {
-                loginContainer.style.display = form === 'login' ? 'block' : 'none';
-                mainContainer.style.display = form === 'main' ? 'block' : 'none';
-                adminPanel.style.display = form === 'admin' ? 'block' : 'none';
+            // Update saldo di halaman penarikan
+            if (pageId === 'penarikan') {
+                document.getElementById('saldo-penarikan').textContent = saldo;
+                updateWithdrawalHistory();
+            }
+        }
+        
+        // Helper untuk mendapatkan teks navigasi
+        function getNavText(pageId) {
+            switch(pageId) {
+                case 'beranda': return 'Beranda';
+                case 'penarikan': return 'Penarikan';
+                case 'pengaturan': return 'Pengaturan';
+                default: return '';
+            }
+        }
+        
+        // Fungsi untuk memulai menonton iklan
+        function startAd(adId) {
+            // Verifikasi API sebelum memulai iklan
+            if (!verifyAPI()) {
+                alert("API tidak terverifikasi. Silakan periksa konfigurasi.");
+                return;
             }
             
-            // Fungsi untuk menangani login
-            function handleLogin() {
-                const username = loginUsername.value.trim();
-                const password = loginPassword.value.trim();
-                
-                if (!username || !password) {
-                    alert('Harap isi semua field!');
-                    return;
-                }
-                
-                // Bersihkan user yang expired terlebih dahulu
-                cleanupExpiredUsers();
-                
-                const user = users.find(u => u.username === username && u.password === password);
-                
-                if (user) {
-                    // Cek apakah user sudah expired
-                    if (!checkUserExpiry(username)) {
-                        alert('Akun user sudah expired! Silakan hubungi admin.');
-                        return;
-                    }
-                    
-                    currentUser = user;
-                    currentUserSpan.textContent = user.username;
-                    
-                    // Tampilkan tombol admin jika user adalah admin
-                    adminBtn.style.display = user.isAdmin ? 'block' : 'none';
-                    
-                    switchForm('main');
-                } else {
-                    alert('Username atau password salah!');
-                }
+            currentAdId = adId;
+            adTimeLeft = 30;
+            
+            // Tampilkan konten iklan yang sesuai
+            const ad = ads.find(a => a.id === adId);
+            document.getElementById('adBrand').textContent = `Iklan ${ad.brand}`;
+            document.getElementById('adMessage').textContent = ad.message;
+            document.querySelector('#adContent div div:last-child').textContent = ad.emoji;
+            
+            // Tampilkan modal iklan
+            document.getElementById('adModal').style.display = 'flex';
+            document.getElementById('adProgress').style.width = '0%';
+            document.getElementById('adTimer').textContent = `Sisa waktu: ${adTimeLeft} detik`;
+            
+            // Nonaktifkan tombol tonton untuk iklan ini
+            document.querySelectorAll('.watch-btn')[adId-1].disabled = true;
+            document.querySelectorAll('.watch-btn')[adId-1].textContent = 'Ditonton';
+            
+            // Mulai timer
+            adInterval = setInterval(updateAdTimer, 1000);
+        }
+        
+        // Fungsi untuk update timer iklan
+        function updateAdTimer() {
+            adTimeLeft--;
+            
+            // Update progress bar
+            const progress = ((30 - adTimeLeft) / 30) * 100;
+            document.getElementById('adProgress').style.width = `${progress}%`;
+            
+            // Update timer
+            document.getElementById('adTimer').textContent = `Sisa waktu: ${adTimeLeft} detik`;
+            
+            // Jika waktu habis
+            if (adTimeLeft <= 0) {
+                finishAd();
+            }
+        }
+        
+        // Fungsi untuk menyelesaikan menonton iklan
+        function finishAd() {
+            clearInterval(adInterval);
+            
+            // Tambah saldo
+            saldo += 500;
+            updateSaldo();
+            
+            // Tutup modal
+            document.getElementById('adModal').style.display = 'none';
+            
+            // Tampilkan modal sukses
+            document.getElementById('successMessage').textContent = 'Selamat! Anda mendapatkan Rp 500 dari menonton iklan.';
+            document.getElementById('successModal').style.display = 'flex';
+            
+            // Simpan data ke localStorage
+            saveUserData();
+        }
+        
+        // Fungsi untuk membatalkan iklan
+        function cancelAd() {
+            clearInterval(adInterval);
+            document.getElementById('adModal').style.display = 'none';
+            
+            // Aktifkan kembali tombol tonton
+            if (currentAdId) {
+                document.querySelectorAll('.watch-btn')[currentAdId-1].disabled = false;
+                document.querySelectorAll('.watch-btn')[currentAdId-1].textContent = 'Tonton';
+            }
+        }
+        
+        // Fungsi untuk update saldo
+        function updateSaldo() {
+            document.getElementById('saldo').textContent = saldo;
+            if (document.getElementById('saldo-penarikan')) {
+                document.getElementById('saldo-penarikan').textContent = saldo;
+            }
+        }
+        
+        // Fungsi untuk menampilkan modal penarikan
+        function showWithdrawalModal(type) {
+            let title = '';
+            let description = '';
+            let minAmount = 0;
+            
+            switch(type) {
+                case 'bank':
+                    title = 'Transfer Bank';
+                    description = 'Anda akan melakukan penarikan saldo ke rekening bank sebesar';
+                    minAmount = 10000;
+                    break;
+                case 'ewallet':
+                    title = 'E-Wallet';
+                    description = 'Anda akan melakukan penarikan saldo ke e-wallet sebesar';
+                    minAmount = 5000;
+                    break;
+                case 'pulsa':
+                    title = 'Pulsa';
+                    description = 'Anda akan menukar saldo menjadi pulsa sebesar';
+                    minAmount = 5000;
+                    break;
             }
             
-            // Fungsi untuk menangani logout
-            function handleLogout() {
-                currentUser = null;
-                loginUsername.value = '';
-                loginPassword.value = '';
-                switchForm('login');
+            if (saldo < minAmount) {
+                document.getElementById('successMessage').textContent = `Saldo tidak mencukupi. Minimal penarikan Rp ${minAmount}.`;
+                document.getElementById('successModal').style.display = 'flex';
+                return;
             }
             
-            // Fungsi untuk menampilkan panel admin
-            function showAdminPanel() {
-                loadUserList();
-                switchForm('admin');
+            document.getElementById('withdrawalTitle').textContent = title;
+            document.getElementById('withdrawalDescription').textContent = description;
+            document.getElementById('withdrawalAmount').textContent = `Rp ${saldo}`;
+            document.getElementById('withdrawalModal').style.display = 'flex';
+        }
+        
+        // Fungsi untuk menutup modal penarikan
+        function closeWithdrawalModal() {
+            document.getElementById('withdrawalModal').style.display = 'none';
+        }
+        
+        // Fungsi untuk memproses penarikan
+        function processWithdrawal() {
+            // Simpan riwayat penarikan
+            const withdrawal = {
+                type: document.getElementById('withdrawalTitle').textContent,
+                amount: saldo,
+                date: new Date().toLocaleDateString('id-ID'),
+                status: 'Diproses'
+            };
+            
+            withdrawalHistory.unshift(withdrawal);
+            
+            // Reset saldo
+            saldo = 0;
+            updateSaldo();
+            
+            // Tutup modal
+            closeWithdrawalModal();
+            
+            // Tampilkan modal sukses
+            document.getElementById('successMessage').textContent = 'Penarikan saldo berhasil! Dana akan diproses dalam 1x24 jam.';
+            document.getElementById('successModal').style.display = 'flex';
+            
+            // Update riwayat penarikan
+            updateWithdrawalHistory();
+            
+            // Simpan data ke localStorage
+            saveUserData();
+        }
+        
+        // Fungsi untuk update riwayat penarikan
+        function updateWithdrawalHistory() {
+            const historyContainer = document.getElementById('riwayat-penarikan');
+            historyContainer.innerHTML = '';
+            
+            if (withdrawalHistory.length === 0) {
+                historyContainer.innerHTML = '<div style="text-align: center; color: #666; padding: 20px;">Belum ada riwayat penarikan</div>';
+                return;
             }
             
-            // Fungsi untuk memuat daftar pengguna
-            function loadUserList() {
-                userList.innerHTML = '';
-                
-                // Bersihkan user yang expired terlebih dahulu
-                cleanupExpiredUsers();
-                
-                users.forEach(user => {
-                    if (user.username === 'Ritxzv') return;
-                    
-                    const userItem = document.createElement('div');
-                    userItem.className = 'user-item';
-                    
-                    // Hitung sisa waktu
-                    let timeInfo = '';
-                    if (user.createdAt) {
-                        const now = new Date();
-                        const userCreateTime = new Date(user.createdAt);
-                        const hoursDiff = (now - userCreateTime) / (1000 * 60 * 60);
-                        const remainingHours = Math.max(0, 1 - hoursDiff);
-                        const remainingMinutes = Math.floor((1 - hoursDiff) * 60);
-                        
-                        if (remainingHours > 0) {
-                            timeInfo = `<br><small>Sisa waktu: ${Math.floor(remainingHours)} jam ${remainingMinutes % 60} menit</small>`;
-                        } else {
-                            timeInfo = `<br><small style="color: #ff4444;">EXPIRED</small>`;
-                        }
-                    }
-                    
-                    userItem.innerHTML = `
-                        <div>
-                            <strong>${user.username}</strong>
-                            ${timeInfo}
-                        </div>
-                        <div class="user-actions">
-                            <button class="btn-danger" onclick="deleteUser('${user.username}')">Hapus</button>
-                        </div>
-                    `;
-                    
-                    userList.appendChild(userItem);
-                });
-            }
-            
-            // Fungsi untuk menambah pengguna baru (hanya admin)
-            function addNewUser() {
-                const username = newUsername.value.trim();
-                const password = newPassword.value.trim();
-                
-                if (!username || !password) {
-                    alert('Harap isi semua field!');
-                    return;
-                }
-                
-                if (users.find(u => u.username === username)) {
-                    alert('Username sudah digunakan!');
-                    return;
-                }
-                
-                // Tambah pengguna baru dengan timestamp
-                users.push({
-                    username,
-                    password,
-                    isAdmin: false,
-                    createdAt: new Date().toISOString()
-                });
-                
-                localStorage.setItem('whatsappSpyUsers', JSON.stringify(users));
-                
-                newUsername.value = '';
-                newPassword.value = '';
-                
-                adminSuccessMessage.textContent = `Pengguna ${username} berhasil ditambahkan. Masa aktif: 1 jam`;
-                adminSuccess.style.display = 'block';
-                
-                setTimeout(() => {
-                    adminSuccess.style.display = 'none';
-                }, 3000);
-                
-                loadUserList();
-            }
-            
-            // Fungsi untuk menghapus pengguna (hanya admin)
-            window.deleteUser = function(username) {
-                if (confirm(`Apakah Anda yakin ingin menghapus pengguna ${username}?`)) {
-                    users = users.filter(u => u.username !== username);
-                    localStorage.setItem('whatsappSpyUsers', JSON.stringify(users));
-                    loadUserList();
-                    
-                    adminSuccessMessage.textContent = `Pengguna ${username} berhasil dihapus.`;
-                    adminSuccess.style.display = 'block';
-                    
-                    setTimeout(() => {
-                        adminSuccess.style.display = 'none';
-                    }, 3000);
-                }
-            }
-            
-            // Fungsi untuk memulai "penyadapan"
-            function startSpying() {
-                const phoneNumber = phoneInput.value.trim();
-                
-                if (!phoneNumber) {
-                    alert('Masukkan nomor WhatsApp target!');
-                    return;
-                }
-                
-                // Validasi format nomor (sederhana)
-                if (!phoneNumber.match(/^\+?[\d\s\-\(\)]+$/)) {
-                    alert('Format nomor tidak valid!');
-                    return;
-                }
-                
-                // Sembunyikan form, tampilkan loading
-                startBtn.style.display = 'none';
-                phoneInput.disabled = true;
-                loadingContainer.style.display = 'block';
-                errorContainer.style.display = 'none';
-                whatsappSimulator.style.display = 'none';
-                
-                // Proses loading
-                let progress = 0;
-                const interval = setInterval(function() {
-                    progress += Math.random() * 10;
-                    
-                    if (progress >= 100) {
-                        progress = 100;
-                        clearInterval(interval);
-                        
-                        // Tampilkan WhatsApp simulator setelah loading selesai
-                        setTimeout(function() {
-                            loadingContainer.style.display = 'none';
-                            whatsappSimulator.style.display = 'block';
-                            
-                            // Set nama target berdasarkan nomor
-                            const nameFromNumber = generateNameFromNumber(phoneNumber);
-                            targetName.textContent = nameFromNumber;
-                            targetAvatar.textContent = nameFromNumber.charAt(0).toUpperCase();
-                            
-                            // Generate chat history
-                            generateChatHistory();
-                            
-                            // Reset form
-                            startBtn.style.display = 'block';
-                            phoneInput.disabled = false;
-                        }, 500);
-                    }
-                    
-                    loadingBar.style.width = progress + '%';
-                    percentage.textContent = Math.floor(progress) + '%';
-                }, 300);
-            }
-            
-            // Fungsi untuk menghasilkan nama dari nomor telepon
-            function generateNameFromNumber(phoneNumber) {
-                const names = ['Ahmad', 'Budi', 'Citra', 'Dewi', 'Eko', 'Fajar', 'Gita', 'Hadi', 'Indra', 'Joko'];
-                const lastDigits = phoneNumber.slice(-2);
-                const nameIndex = parseInt(lastDigits) % names.length;
-                return names[nameIndex];
-            }
-            
-            // Fungsi untuk menghasilkan riwayat chat
-            function generateChatHistory() {
-                waChat.innerHTML = '';
-                
-                const messages = [
-                    { text: 'Halo, apa kabar?', sent: false, time: '10:15' },
-                    { text: 'Baik, terima kasih. Kamu gimana?', sent: true, time: '10:16' },
-                    { text: 'Juga baik. Lagi apa?', sent: false, time: '10:17' },
-                    { text: 'Lagi santai aja nih. Mau ketemuan nanti?', sent: true, time: '10:18' },
-                    { text: 'Bisa, jam berapa?', sent: false, time: '10:19' },
-                    { text: 'Jam 3 sore gimana?', sent: true, time: '10:20' },
-                    { text: 'Oke, setuju nanti aku kerumah kamu!', sent: false, time: '10:21' }
-                ];
-                
-                messages.forEach(msg => {
-                    addMessageToChat(msg.text, msg.sent, msg.time);
-                });
-            }
-            
-            // Fungsi untuk menambahkan pesan ke chat
-            function addMessageToChat(text, isSent, time) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `wa-message ${isSent ? 'sent' : 'received'}`;
-                messageDiv.innerHTML = `
-                    <div>${text}</div>
-                    <div class="wa-message-time">${time}</div>
+            withdrawalHistory.forEach(item => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `
+                    <div class="history-info">
+                        <div class="history-title">${item.type}</div>
+                        <div class="history-date">${item.date} - ${item.status}</div>
+                    </div>
+                    <div class="history-amount">- Rp ${item.amount}</div>
                 `;
-                waChat.appendChild(messageDiv);
-                waChat.scrollTop = waChat.scrollHeight;
+                historyContainer.appendChild(historyItem);
+            });
+        }
+        
+        // Fungsi untuk menutup modal sukses
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+        }
+        
+        // Fungsi untuk menyimpan data pengguna
+        function saveUserData() {
+            const userData = {
+                saldo: saldo,
+                withdrawalHistory: withdrawalHistory,
+                lastUpdate: new Date().toISOString()
+            };
+            localStorage.setItem('adWatchUserData', JSON.stringify(userData));
+        }
+        
+        // Fungsi untuk memuat data pengguna
+        function loadUserData() {
+            const savedData = localStorage.getItem('adWatchUserData');
+            if (savedData) {
+                const userData = JSON.parse(savedData);
+                saldo = userData.saldo || 0;
+                withdrawalHistory = userData.withdrawalHistory || [];
             }
+        }
+        
+        // Inisialisasi
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifikasi API saat halaman dimuat
+            verifyAPI();
             
-            // Fungsi untuk membuat elemen floating
-            function createFloatingElements() {
-                const container = document.getElementById('floatingElements');
-                const count = 30;
-                
-                for (let i = 0; i < count; i++) {
-                    const element = document.createElement('div');
-                    element.classList.add('floating-element');
-                    
-                    // Posisi acak
-                    element.style.left = Math.random() * 100 + 'vw';
-                    element.style.animationDelay = Math.random() * 15 + 's';
-                    
-                    // Ukuran acak
-                    const size = 2 + Math.random() * 3;
-                    element.style.width = size + 'px';
-                    element.style.height = size + 'px';
-                    
-                    // Opasitas acak
-                    element.style.opacity = 0.2 + Math.random() * 0.5;
-                    
-                    container.appendChild(element);
-                }
+            // Muat data pengguna
+            loadUserData();
+            
+            updateSaldo();
+            updateWithdrawalHistory();
+            
+            // Tambahkan beberapa riwayat penarikan contoh jika kosong
+            if (withdrawalHistory.length === 0) {
+                withdrawalHistory = [
+                    { type: 'Transfer Bank', amount: 15000, date: '15/03/2023', status: 'Selesai' },
+                    { type: 'E-Wallet', amount: 5000, date: '10/03/2023', status: 'Selesai' }
+                ];
+                updateWithdrawalHistory();
             }
         });
-        
-        // Fungsi untuk mengirim pesan di WhatsApp simulator
-        function sendMessage() {
-            const input = document.getElementById('waMessageInput');
-            const message = input.value.trim();
-            
-            if (message) {
-                const time = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-                addMessageToChat(message, true, time);
-                input.value = '';
-                
-                // Auto reply setelah beberapa detik
-                setTimeout(() => {
-                    const replies = [
-                        'Oke',
-                        'Baik',
-                        'Siap',
-                        'Mengerti',
-                        'Lanjutkan'
-                    ];
-                    const randomReply = replies[Math.floor(Math.random() * replies.length)];
-                    const replyTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-                    addMessageToChat(randomReply, false, replyTime);
-                }, 1000 + Math.random() * 2000);
-            }
-        }
-        
-        // Fungsi untuk menambahkan pesan ke chat (global)
-        function addMessageToChat(text, isSent, time) {
-            const waChat = document.getElementById('waChat');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `wa-message ${isSent ? 'sent' : 'received'}`;
-            messageDiv.innerHTML = `
-                <div>${text}</div>
-                <div class="wa-message-time">${time}</div>
-            `;
-            waChat.appendChild(messageDiv);
-            waChat.scrollTop = waChat.scrollHeight;
-        }
-        
-        // Fungsi untuk toggle menu
-        function toggleMenu() {
-            const menu = document.getElementById('waMenu');
-            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-        }
-        
-        // Fungsi untuk menutup menu
-        function closeMenu() {
-            document.getElementById('waMenu').style.display = 'none';
-        }
-        
-        // Fungsi untuk beralih tab
-        function switchTab(tab) {
-            // Update tab aktif
-            document.querySelectorAll('.wa-tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            // Tampilkan konten yang sesuai
-            document.getElementById('waChat').style.display = tab === 'chat' ? 'flex' : 'none';
-            document.getElementById('waStatusList').style.display = tab === 'status' ? 'block' : 'none';
-            document.getElementById('waCallsList').style.display = tab === 'calls' ? 'block' : 'none';
-        }
-        
-        // Fungsi untuk panggilan video
-        function toggleVideoCall() {
-            alert('Memulai panggilan video...');
-        }
-        
-        // Fungsi untuk panggilan suara
-        function toggleVoiceCall() {
-            alert('Memulai panggilan suara...');
-        }
-        
-        // Fungsi menu WhatsApp
-        function viewContact() {
-            alert('Menampilkan info kontak...');
-            closeMenu();
-        }
-        
-        function viewMedia() {
-            alert('Menampilkan media, link & dokumen...');
-            closeMenu();
-        }
-        
-        function searchChat() {
-            alert('Membuka pencarian chat...');
-            closeMenu();
-        }
-        
-        function muteNotifications() {
-            alert('Notifikasi dibisukan...');
-            closeMenu();
-        }
-        
-        function wallpaperSettings() {
-            alert('Membuka pengaturan wallpaper...');
-            closeMenu();
-        }
     </script>
 </body>
 </html>
