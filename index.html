@@ -435,6 +435,43 @@
             font-size: 12px;
             color: #2e7d32;
         }
+        
+        .external-ad-container {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 20px;
+        }
+        
+        .external-ad-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .ad-redirect-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .ad-redirect-btn:hover {
+            background: #ff5252;
+        }
     </style>
 </head>
 <body>
@@ -496,6 +533,17 @@
                     <div class="ad-reward">
                         <div class="reward-amount">+ Rp 500</div>
                         <button class="watch-btn" onclick="startAd(4)">Tonton</button>
+                    </div>
+                </div>
+                
+                <!-- Iklan Eksternal -->
+                <div class="ad-card">
+                    <div class="ad-title">Iklan Premium</div>
+                    <div class="ad-description">Tonton iklan premium dengan penghasilan lebih tinggi</div>
+                    <div class="ad-brand">Sponsor: Partner Eksternal</div>
+                    <div class="ad-reward">
+                        <div class="reward-amount">+ Rp 1.000</div>
+                        <button class="watch-btn" onclick="startExternalAd()">Tonton</button>
                     </div>
                 </div>
             </div>
@@ -625,6 +673,31 @@
             </div>
         </div>
         
+        <!-- Modal Menonton Iklan Eksternal -->
+        <div id="externalAdModal" class="modal">
+            <div class="modal-content">
+                <div class="ad-player">
+                    <div class="external-ad-container" id="externalAdContent">
+                        <div style="text-align: center;">
+                            <div style="font-size: 24px; margin-bottom: 10px;">Iklan Premium</div>
+                            <div style="font-size: 16px; margin-bottom: 20px;">Tonton iklan premium untuk mendapatkan penghasilan lebih tinggi</div>
+                            <div style="font-size: 36px; margin-bottom: 20px;">💰</div>
+                            <p style="font-size: 14px; margin-bottom: 20px;">Iklan sedang dimuat...</p>
+                            <a href="https://female-agent.com/d.mqFVzDdjGjNyvZZpG/UI/Ne_m/9/u/ZCUHlEkjPZTgYp2eOQDMILzHNETnA/tcN/jCYP4fMPj/M/1lM-QK" 
+                               target="_blank" class="ad-redirect-btn" id="externalAdLink">
+                                Kunjungi Situs Iklan
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" id="externalAdProgress"></div>
+                </div>
+                <div class="ad-timer" id="externalAdTimer">Sisa waktu: 30 detik</div>
+                <button class="modal-btn secondary" id="cancelExternalAdBtn" onclick="cancelExternalAd()">Batalkan</button>
+            </div>
+        </div>
+        
         <!-- Modal Konfirmasi Penarikan -->
         <div id="withdrawalModal" class="modal">
             <div class="modal-content">
@@ -670,6 +743,8 @@
         let currentAdId = null;
         let adInterval = null;
         let adTimeLeft = 30;
+        let externalAdInterval = null;
+        let externalAdTimeLeft = 30;
         let withdrawalHistory = [];
         
         // Data iklan simulasi
@@ -679,6 +754,9 @@
             { id: 3, brand: "TechGadget", message: "Teknologi terbaru untuk hidup lebih baik!", emoji: "📱" },
             { id: 4, brand: "StyleTrend", message: "Tampil percaya diri dengan gaya terbaru!", emoji: "👔" }
         ];
+        
+        // URL iklan eksternal
+        const externalAdUrl = "https://female-agent.com/d.mqFVzDdjGjNyvZZpG/UI/Ne_m/9/u/ZCUHlEkjPZTgYp2eOQDMILzHNETnA/tcN/jCYP4fMPj/M/1lM-QK";
         
         // Fungsi untuk verifikasi API
         function verifyAPI() {
@@ -755,6 +833,45 @@
             adInterval = setInterval(updateAdTimer, 1000);
         }
         
+        // Fungsi untuk memulai menonton iklan eksternal
+        function startExternalAd() {
+            // Verifikasi API sebelum memulai iklan
+            if (!verifyAPI()) {
+                alert("API tidak terverifikasi. Silakan periksa konfigurasi.");
+                return;
+            }
+            
+            externalAdTimeLeft = 30;
+            
+            // Tampilkan modal iklan eksternal
+            document.getElementById('externalAdModal').style.display = 'flex';
+            document.getElementById('externalAdProgress').style.width = '0%';
+            document.getElementById('externalAdTimer').textContent = `Sisa waktu: ${externalAdTimeLeft} detik`;
+            
+            // Nonaktifkan tombol tonton untuk iklan eksternal
+            document.querySelectorAll('.watch-btn')[4].disabled = true;
+            document.querySelectorAll('.watch-btn')[4].textContent = 'Ditonton';
+            
+            // Mulai timer
+            externalAdInterval = setInterval(updateExternalAdTimer, 1000);
+            
+            // Simulasikan loading iklan
+            setTimeout(() => {
+                const adContent = document.getElementById('externalAdContent');
+                adContent.innerHTML = `
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; margin-bottom: 10px;">Iklan Premium</div>
+                        <div style="font-size: 16px; margin-bottom: 20px;">Terima kasih telah menonton iklan premium kami!</div>
+                        <div style="font-size: 36px; margin-bottom: 20px;">🎉</div>
+                        <p style="font-size: 14px; margin-bottom: 20px;">Anda akan mendapatkan Rp 1.000 setelah iklan selesai</p>
+                        <a href="${externalAdUrl}" target="_blank" class="ad-redirect-btn">
+                            Kunjungi Situs Sponsor
+                        </a>
+                    </div>
+                `;
+            }, 2000);
+        }
+        
         // Fungsi untuk update timer iklan
         function updateAdTimer() {
             adTimeLeft--;
@@ -769,6 +886,23 @@
             // Jika waktu habis
             if (adTimeLeft <= 0) {
                 finishAd();
+            }
+        }
+        
+        // Fungsi untuk update timer iklan eksternal
+        function updateExternalAdTimer() {
+            externalAdTimeLeft--;
+            
+            // Update progress bar
+            const progress = ((30 - externalAdTimeLeft) / 30) * 100;
+            document.getElementById('externalAdProgress').style.width = `${progress}%`;
+            
+            // Update timer
+            document.getElementById('externalAdTimer').textContent = `Sisa waktu: ${externalAdTimeLeft} detik`;
+            
+            // Jika waktu habis
+            if (externalAdTimeLeft <= 0) {
+                finishExternalAd();
             }
         }
         
@@ -791,6 +925,25 @@
             saveUserData();
         }
         
+        // Fungsi untuk menyelesaikan menonton iklan eksternal
+        function finishExternalAd() {
+            clearInterval(externalAdInterval);
+            
+            // Tambah saldo (lebih tinggi untuk iklan eksternal)
+            saldo += 1000;
+            updateSaldo();
+            
+            // Tutup modal
+            document.getElementById('externalAdModal').style.display = 'none';
+            
+            // Tampilkan modal sukses
+            document.getElementById('successMessage').textContent = 'Selamat! Anda mendapatkan Rp 1.000 dari menonton iklan premium.';
+            document.getElementById('successModal').style.display = 'flex';
+            
+            // Simpan data ke localStorage
+            saveUserData();
+        }
+        
         // Fungsi untuk membatalkan iklan
         function cancelAd() {
             clearInterval(adInterval);
@@ -801,6 +954,16 @@
                 document.querySelectorAll('.watch-btn')[currentAdId-1].disabled = false;
                 document.querySelectorAll('.watch-btn')[currentAdId-1].textContent = 'Tonton';
             }
+        }
+        
+        // Fungsi untuk membatalkan iklan eksternal
+        function cancelExternalAd() {
+            clearInterval(externalAdInterval);
+            document.getElementById('externalAdModal').style.display = 'none';
+            
+            // Aktifkan kembali tombol tonton
+            document.querySelectorAll('.watch-btn')[4].disabled = false;
+            document.querySelectorAll('.watch-btn')[4].textContent = 'Tonton';
         }
         
         // Fungsi untuk update saldo
