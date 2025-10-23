@@ -3,262 +3,724 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdWatch - Hasilkan Uang dengan Menonton Iklan</title>
-    
-    <!-- KODE API YANG ANDA MINTA -->
-    <meta name="referrer" content="no-referrer-when-downgrade" />
-    <meta name="815c4b13e2b441dcfbe4e65e5e23e5d3a7553e32" content="815c4b13e2b441dcfbe4e65e5e23e5d3a7553e32" />
-    <!-- END KODE API -->
-    
+    <title>WealthGrow - Platform Investasi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --danger: #f87171;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
         }
         
         body {
-            background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            padding-bottom: 80px;
         }
         
         .container {
-            max-width: 480px;
+            max-width: 1200px;
             margin: 0 auto;
-            background-color: white;
+            padding: 0 20px;
+        }
+        
+        /* Login/Register Styles */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-            padding-bottom: 70px;
-        }
-        
-        header {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            color: white;
             padding: 20px;
+        }
+        
+        .auth-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .auth-header {
             text-align: center;
-            border-radius: 0 0 15px 15px;
+            margin-bottom: 30px;
         }
         
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .tagline {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        
-        .balance-card {
-            background: white;
-            margin: 20px;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        
-        .balance-label {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 5px;
-        }
-        
-        .balance-amount {
-            font-size: 32px;
-            font-weight: bold;
-            color: #2575fc;
-        }
-        
-        .ads-section {
-            margin: 20px;
-        }
-        
-        .section-title {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: #333;
-            font-weight: 600;
-        }
-        
-        .ad-card {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            border-left: 4px solid #2575fc;
-        }
-        
-        .ad-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .ad-description {
-            font-size: 14px;
-            color: #666;
+        .auth-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
             margin-bottom: 10px;
         }
         
-        .ad-reward {
+        .auth-logo i {
+            color: var(--accent);
+        }
+        
+        .auth-header h2 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .auth-header p {
+            color: var(--gray);
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(67, 97, 238, 0.1);
+        }
+        
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .auth-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .auth-form {
+            display: none;
+        }
+        
+        .auth-form.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        /* Header Styles */
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
-        .reward-amount {
-            color: #4CAF50;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 800;
+            color: white;
+        }
+        
+        .logo i {
+            color: var(--accent);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+        }
+        
+        .saldo {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            padding: 30px 0;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card h2 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card h2 i {
+            color: var(--primary);
+        }
+        
+        /* Dashboard Styles */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .dashboard-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dashboard-card h3 {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+        
+        .dashboard-card .value {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--dark);
+        }
+        
+        /* Level Selection Styles */
+        .level-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .level-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .level-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--accent);
+        }
+        
+        .level-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .level-card.selected {
+            background: linear-gradient(135deg, var(--success), #16a34a);
+            box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.5);
+        }
+        
+        .level-card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .level-card .profit {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px 0;
+            color: var(--accent);
+        }
+        
+        .level-card .description {
+            font-size: 14px;
+            opacity: 0.9;
+            margin: 5px 0;
+        }
+        
+        .level-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
             font-weight: bold;
         }
         
-        .watch-btn {
-            background: #2575fc;
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
+            padding: 14px 25px;
             border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-weight: 600;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
         }
         
-        .watch-btn:hover {
-            background: #1a68e8;
-            transform: translateY(-2px);
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
         }
         
-        .watch-btn:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-            transform: none;
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #16a34a);
+            box-shadow: 0 5px 15px rgba(74, 222, 128, 0.3);
         }
         
+        .btn-success:hover {
+            box-shadow: 0 8px 20px rgba(74, 222, 128, 0.4);
+        }
+        
+        .btn-block {
+            width: 100%;
+        }
+        
+        /* Input Styles */
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+        
+        /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: white;
-            display: flex;
-            justify-content: space-around;
-            padding: 15px 0;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-            max-width: 480px;
-            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+            z-index: 100;
         }
         
-        .nav-item {
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            justify-content: space-around;
+            padding: 15px 0;
+        }
+        
+        .nav-menu li {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .nav-menu a {
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-size: 12px;
-            color: #666;
-            cursor: pointer;
-            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 0;
+            border-radius: 12px;
+            margin: 0 5px;
         }
         
-        .nav-item.active {
-            color: #2575fc;
+        .nav-menu a:hover, .nav-menu a.active {
+            color: var(--primary);
+            background: rgba(67, 97, 238, 0.1);
         }
         
-        .nav-icon {
-            font-size: 20px;
+        .nav-menu i {
+            font-size: 22px;
             margin-bottom: 5px;
         }
         
-        .page {
-            display: none;
+        .nav-menu span {
+            font-size: 12px;
         }
         
-        .page.active {
+        /* Hidden Content */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .content-section.active {
             display: block;
         }
         
-        .withdrawal-section, .settings-section {
-            padding: 20px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .withdrawal-option {
-            background: white;
+        /* Progress Bar */
+        .progress-container {
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #e2e8f0;
             border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
+            overflow: hidden;
         }
         
-        .withdrawal-icon {
-            width: 40px;
-            height: 40px;
-            background: #f0f7ff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            color: #2575fc;
-        }
-        
-        .withdrawal-info {
-            flex: 1;
-        }
-        
-        .withdrawal-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .withdrawal-description {
-            font-size: 12px;
-            color: #666;
-        }
-        
-        .withdrawal-action {
-            color: #2575fc;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        
-        .setting-item {
-            background: white;
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: width 0.5s ease;
+        }
+        
+        /* Withdrawal History */
+        .history-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
         }
         
-        .setting-info {
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        
+        .history-amount {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .history-date {
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
         
-        .setting-title {
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-header h2 {
+            color: var(--dark);
+            margin: 0;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        /* Admin Panel Styles */
+        .admin-panel {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .admin-table th, .admin-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .admin-table th {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
             font-weight: 600;
-            margin-bottom: 5px;
         }
         
-        .setting-description {
-            font-size: 12px;
-            color: #666;
+        .admin-table tr:hover {
+            background: rgba(67, 97, 238, 0.05);
         }
         
-        .toggle-switch {
+        .status-pending {
+            color: var(--warning);
+            font-weight: 600;
+        }
+        
+        .status-approved {
+            color: var(--success);
+            font-weight: 600;
+        }
+        
+        .status-rejected {
+            color: var(--danger);
+            font-weight: 600;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .level-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .auth-card {
+                padding: 30px 20px;
+            }
+            
+            .admin-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .user-info {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.5s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification i {
+            font-size: 24px;
+        }
+        
+        .notification.success i {
+            color: var(--success);
+        }
+        
+        .notification.error i {
+            color: var(--danger);
+        }
+        
+        /* Logout Menu */
+        .logout-menu {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 10px 0;
+            width: 180px;
+            z-index: 101;
+            display: none;
+        }
+        
+        .logout-menu.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .logout-menu button {
+            width: 100%;
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--dark);
+            transition: background 0.3s ease;
+        }
+        
+        .logout-menu button:hover {
+            background: rgba(67, 97, 238, 0.1);
+        }
+        
+        /* Switch Toggle */
+        .switch {
             position: relative;
             display: inline-block;
             width: 50px;
             height: 24px;
         }
         
-        .toggle-switch input {
+        .switch input {
             opacity: 0;
             width: 0;
             height: 0;
@@ -289,831 +751,1019 @@
         }
         
         input:checked + .slider {
-            background-color: #2575fc;
+            background-color: var(--primary);
         }
         
         input:checked + .slider:before {
             transform: translateX(26px);
         }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 100;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal-content {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-        }
-        
-        .modal-title {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-        
-        .modal-description {
-            margin-bottom: 20px;
-            color: #666;
-        }
-        
-        .modal-actions {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .modal-btn {
-            padding: 10px 20px;
-            border-radius: 20px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        
-        .modal-btn.primary {
-            background: #2575fc;
-            color: white;
-        }
-        
-        .modal-btn.secondary {
-            background: #f0f0f0;
-            color: #333;
-        }
-        
-        .ad-player {
-            width: 100%;
-            height: 200px;
-            background: #000;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-        }
-        
-        .ad-timer {
-            text-align: center;
-            font-size: 14px;
-            margin-bottom: 15px;
-            color: #666;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 5px;
-            background: #e0e0e0;
-            border-radius: 5px;
-            overflow: hidden;
-            margin-bottom: 15px;
-        }
-        
-        .progress {
-            height: 100%;
-            background: #2575fc;
-            width: 0%;
-            transition: width 1s linear;
-        }
-        
-        .history-item {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .history-info {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .history-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .history-date {
-            font-size: 12px;
-            color: #666;
-        }
-        
-        .history-amount {
-            font-weight: 600;
-            color: #4CAF50;
-        }
-        
-        .ad-brand {
-            font-size: 12px;
-            color: #888;
-            margin-top: 5px;
-        }
-        
-        .api-status {
-            background: #e8f5e8;
-            border: 1px solid #4CAF50;
-            border-radius: 10px;
-            padding: 10px;
-            margin: 10px 20px;
-            text-align: center;
-            font-size: 12px;
-            color: #2e7d32;
-        }
-        
-        .external-ad-container {
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-            overflow: hidden;
-            background: #000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            padding: 20px;
-        }
-        
-        .external-ad-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        .ad-redirect-btn {
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 15px;
-            text-decoration: none;
-            display: inline-block;
-        }
-        
-        .ad-redirect-btn:hover {
-            background: #ff5252;
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">AdWatch</div>
-            <div class="tagline">Hasilkan uang dengan menonton iklan</div>
-        </header>
-        
-        <!-- Status API -->
-        <div class="api-status">
-            ✅ API Terintegrasi - Siap Menghasilkan Uang!
-        </div>
-        
-        <!-- Halaman Beranda -->
-        <div id="beranda" class="page active">
-            <div class="balance-card">
-                <div class="balance-label">Saldo Anda</div>
-                <div class="balance-amount">Rp <span id="saldo">0</span></div>
+    <!-- Authentication Section -->
+    <div id="auth-section" class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <i class="fas fa-chart-line"></i>
+                    <span>WealthGrow</span>
+                </div>
+                <h2>Selamat Datang</h2>
+                <p>Masuk atau daftar untuk mulai berinvestasi</p>
             </div>
             
-            <div class="ads-section">
-                <div class="section-title">Iklan Tersedia</div>
-                
-                <div class="ad-card">
-                    <div class="ad-title">Iklan Makanan Ringan</div>
-                    <div class="ad-description">Tonton iklan produk makanan ringan selama 30 detik</div>
-                    <div class="ad-brand">Sponsor: SnackJoy</div>
-                    <div class="ad-reward">
-                        <div class="reward-amount">+ Rp 500</div>
-                        <button class="watch-btn" onclick="startAd(1)">Tonton</button>
-                    </div>
-                </div>
-                
-                <div class="ad-card">
-                    <div class="ad-title">Iklan Minuman Energi</div>
-                    <div class="ad-description">Tonton iklan minuman energi selama 30 detik</div>
-                    <div class="ad-brand">Sponsor: PowerDrink</div>
-                    <div class="ad-reward">
-                        <div class="reward-amount">+ Rp 500</div>
-                        <button class="watch-btn" onclick="startAd(2)">Tonton</button>
-                    </div>
-                </div>
-                
-                <div class="ad-card">
-                    <div class="ad-title">Iklan Teknologi</div>
-                    <div class="ad-description">Tonton iklan produk teknologi selama 30 detik</div>
-                    <div class="ad-brand">Sponsor: TechGadget</div>
-                    <div class="ad-reward">
-                        <div class="reward-amount">+ Rp 500</div>
-                        <button class="watch-btn" onclick="startAd(3)">Tonton</button>
-                    </div>
-                </div>
-                
-                <div class="ad-card">
-                    <div class="ad-title">Iklan Fashion</div>
-                    <div class="ad-description">Tonton iklan produk fashion selama 30 detik</div>
-                    <div class="ad-brand">Sponsor: StyleTrend</div>
-                    <div class="ad-reward">
-                        <div class="reward-amount">+ Rp 500</div>
-                        <button class="watch-btn" onclick="startAd(4)">Tonton</button>
-                    </div>
-                </div>
-                
-                <!-- Iklan Eksternal -->
-                <div class="ad-card">
-                    <div class="ad-title">Iklan Premium</div>
-                    <div class="ad-description">Tonton iklan premium dengan penghasilan lebih tinggi</div>
-                    <div class="ad-brand">Sponsor: Partner Eksternal</div>
-                    <div class="ad-reward">
-                        <div class="reward-amount">+ Rp 1.000</div>
-                        <button class="watch-btn" onclick="startExternalAd()">Tonton</button>
-                    </div>
-                </div>
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">Masuk</div>
+                <div class="auth-tab" data-tab="register">Daftar</div>
             </div>
+            
+            <form id="login-form" class="auth-form active">
+                <div class="input-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="Masukkan email Anda" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Masukkan password Anda" required>
+                </div>
+                
+                <button type="submit" class="btn btn-block">
+                    <i class="fas fa-sign-in-alt"></i> Masuk
+                </button>
+                
+                <div style="text-align: center; margin-top: 15px;">
+                    <button type="button" id="admin-login-btn" style="background: none; border: none; color: var(--primary); cursor: pointer;">
+                        Masuk sebagai Admin
+                    </button>
+                </div>
+            </form>
+            
+            <form id="register-form" class="auth-form">
+                <div class="input-group">
+                    <label for="register-name">Nama Lengkap</label>
+                    <input type="text" id="register-name" placeholder="Masukkan nama lengkap Anda" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" placeholder="Masukkan email Anda" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" placeholder="Buat password Anda" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="register-confirm-password">Konfirmasi Password</label>
+                    <input type="password" id="register-confirm-password" placeholder="Konfirmasi password Anda" required>
+                </div>
+                
+                <button type="submit" class="btn btn-block">
+                    <i class="fas fa-user-plus"></i> Daftar
+                </button>
+            </form>
         </div>
-        
-        <!-- Halaman Penarikan -->
-        <div id="penarikan" class="page">
-            <div class="withdrawal-section">
-                <div class="section-title">Penarikan Saldo</div>
-                
-                <div class="balance-card">
-                    <div class="balance-label">Saldo Tersedia</div>
-                    <div class="balance-amount">Rp <span id="saldo-penarikan">0</span></div>
-                </div>
-                
-                <div class="withdrawal-option">
-                    <div class="withdrawal-icon">
-                        💳
+    </div>
+    
+    <!-- Main App (Initially Hidden) -->
+    <div id="app-section" style="display: none;">
+        <!-- Header -->
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <i class="fas fa-chart-line"></i>
+                        <span>WealthGrow</span>
                     </div>
-                    <div class="withdrawal-info">
-                        <div class="withdrawal-title">Transfer Bank</div>
-                        <div class="withdrawal-description">Minimal penarikan Rp 10.000</div>
-                    </div>
-                    <div class="withdrawal-action" onclick="showWithdrawalModal('bank')">Tarik</div>
-                </div>
-                
-                <div class="withdrawal-option">
-                    <div class="withdrawal-icon">
-                        📱
-                    </div>
-                    <div class="withdrawal-info">
-                        <div class="withdrawal-title">E-Wallet</div>
-                        <div class="withdrawal-description">Minimal penarikan Rp 5.000</div>
-                    </div>
-                    <div class="withdrawal-action" onclick="showWithdrawalModal('ewallet')">Tarik</div>
-                </div>
-                
-                <div class="withdrawal-option">
-                    <div class="withdrawal-icon">
-                        📞
-                    </div>
-                    <div class="withdrawal-info">
-                        <div class="withdrawal-title">Pulsa</div>
-                        <div class="withdrawal-description">Minimal penarikan Rp 5.000</div>
-                    </div>
-                    <div class="withdrawal-action" onclick="showWithdrawalModal('pulsa')">Tukar</div>
-                </div>
-                
-                <div class="section-title" style="margin-top: 30px;">Riwayat Penarikan</div>
-                
-                <div id="riwayat-penarikan">
-                    <!-- Riwayat penarikan akan ditampilkan di sini -->
-                </div>
-            </div>
-        </div>
-        
-        <!-- Halaman Pengaturan -->
-        <div id="pengaturan" class="page">
-            <div class="settings-section">
-                <div class="section-title">Pengaturan</div>
-                
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <div class="setting-title">Notifikasi</div>
-                        <div class="setting-description">Aktifkan notifikasi untuk iklan baru</div>
-                    </div>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="notifikasi" checked>
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <div class="setting-title">Auto Play</div>
-                        <div class="setting-description">Putar iklan berikutnya secara otomatis</div>
-                    </div>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="autoplay">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <div class="setting-title">API Integration</div>
-                        <div class="setting-description">Status: <span style="color: #4CAF50;">Aktif</span></div>
-                    </div>
-                    <div style="color: #4CAF50; font-weight: 600;">✓ Terhubung</div>
-                </div>
-                
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <div class="setting-title">Tentang Aplikasi</div>
-                        <div class="setting-description">Versi 1.0.0 dengan API Integration</div>
-                    </div>
-                    <div style="color: #2575fc; font-weight: 600;">Info</div>
-                </div>
-                
-                <div class="setting-item">
-                    <div class="setting-info">
-                        <div class="setting-title">Bantuan & Dukungan</div>
-                        <div class="setting-description">Pusat bantuan dan FAQ</div>
-                    </div>
-                    <div style="color: #2575fc; font-weight: 600;">Buka</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Modal Menonton Iklan -->
-        <div id="adModal" class="modal">
-            <div class="modal-content">
-                <div class="ad-player">
-                    <div id="adContent">
-                        <div style="text-align: center;">
-                            <div style="font-size: 24px; margin-bottom: 10px;" id="adBrand">Iklan SnackJoy</div>
-                            <div style="font-size: 16px; margin-bottom: 20px;" id="adMessage">Nikmati kelezatan yang tak terlupakan!</div>
-                            <div style="font-size: 36px;">🍿</div>
+                    <div class="user-info">
+                        <div class="saldo">Rp <span id="saldo-amount">1.250.000</span></div>
+                        <div class="avatar" id="user-avatar">JD</div>
+                        <div class="logout-menu" id="logout-menu">
+                            <button id="logout-btn">
+                                <i class="fas fa-sign-out-alt"></i> Keluar
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress" id="adProgress"></div>
-                </div>
-                <div class="ad-timer" id="adTimer">Sisa waktu: 30 detik</div>
-                <button class="modal-btn secondary" id="cancelAdBtn" onclick="cancelAd()">Batalkan</button>
             </div>
-        </div>
+        </header>
         
-        <!-- Modal Menonton Iklan Eksternal -->
-        <div id="externalAdModal" class="modal">
-            <div class="modal-content">
-                <div class="ad-player">
-                    <div class="external-ad-container" id="externalAdContent">
-                        <div style="text-align: center;">
-                            <div style="font-size: 24px; margin-bottom: 10px;">Iklan Premium</div>
-                            <div style="font-size: 16px; margin-bottom: 20px;">Tonton iklan premium untuk mendapatkan penghasilan lebih tinggi</div>
-                            <div style="font-size: 36px; margin-bottom: 20px;">💰</div>
-                            <p style="font-size: 14px; margin-bottom: 20px;">Iklan sedang dimuat...</p>
-                            <a href="https://female-agent.com/d.mqFVzDdjGjNyvZZpG/UI/Ne_m/9/u/ZCUHlEkjPZTgYp2eOQDMILzHNETnA/tcN/jCYP4fMPj/M/1lM-QK" 
-                               target="_blank" class="ad-redirect-btn" id="externalAdLink">
-                                Kunjungi Situs Iklan
-                            </a>
+        <!-- Main Content -->
+        <div class="container main-content">
+            <!-- Home Section -->
+            <section id="home" class="content-section active">
+                <div class="card">
+                    <h2><i class="fas fa-tachometer-alt"></i> Dashboard Investasi</h2>
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card">
+                            <h3>Level Investasi</h3>
+                            <div class="value" id="current-level">-</div>
+                        </div>
+                        <div class="dashboard-card">
+                            <h3>Profit Harian</h3>
+                            <div class="value" id="daily-profit">Rp 0</div>
+                        </div>
+                        <div class="dashboard-card">
+                            <h3>Total Profit</h3>
+                            <div class="value" id="total-profit">Rp 0</div>
+                        </div>
+                        <div class="dashboard-card">
+                            <h3>Status Investasi</h3>
+                            <div class="value" id="active-investment">Tidak Aktif</div>
                         </div>
                     </div>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress" id="externalAdProgress"></div>
+                
+                <div class="card">
+                    <h2><i class="fas fa-layer-group"></i> Pilih Level Investasi</h2>
+                    <p>Pilih level investasi yang sesuai dengan kebutuhan Anda. Profit harian akan disesuaikan dengan level yang dipilih.</p>
+                    
+                    <div class="level-container">
+                        <div class="level-card" data-level="1" data-profit="20000">
+                            <div class="level-badge">Paling Populer</div>
+                            <h3>Level 1 - Pemula</h3>
+                            <div class="profit">Rp 20.000/hari</div>
+                            <div class="description">Investasi awal: Rp 100.000</div>
+                            <div class="description">Minimal penarikan: Rp 50.000</div>
+                        </div>
+                        
+                        <div class="level-card" data-level="2" data-profit="30000">
+                            <h3>Level 2 - Menengah</h3>
+                            <div class="profit">Rp 30.000/hari</div>
+                            <div class="description">Investasi awal: Rp 200.000</div>
+                            <div class="description">Minimal penarikan: Rp 50.000</div>
+                        </div>
+                        
+                        <div class="level-card" data-level="3" data-profit="50000">
+                            <h3>Level 3 - Profesional</h3>
+                            <div class="profit">Rp 50.000/hari</div>
+                            <div class="description">Investasi awal: Rp 500.000</div>
+                            <div class="description">Minimal penarikan: Rp 100.000</div>
+                        </div>
+                        
+                        <div class="level-card" data-level="4" data-profit="100000">
+                            <div class="level-badge">Eksklusif</div>
+                            <h3>Level 4 - Premium</h3>
+                            <div class="profit">Rp 100.000/hari</div>
+                            <div class="description">Investasi awal: Rp 1.000.000</div>
+                            <div class="description">Minimal penarikan: Rp 200.000</div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button id="invest-btn" class="btn btn-success">
+                            <i class="fas fa-rocket"></i> Mulai Investasi
+                        </button>
+                    </div>
                 </div>
-                <div class="ad-timer" id="externalAdTimer">Sisa waktu: 30 detik</div>
-                <button class="modal-btn secondary" id="cancelExternalAdBtn" onclick="cancelExternalAd()">Batalkan</button>
-            </div>
-        </div>
-        
-        <!-- Modal Konfirmasi Penarikan -->
-        <div id="withdrawalModal" class="modal">
-            <div class="modal-content">
-                <div class="modal-title" id="withdrawalTitle">Penarikan Saldo</div>
-                <div class="modal-description" id="withdrawalDescription">Anda akan melakukan penarikan saldo sebesar</div>
-                <div class="balance-amount" id="withdrawalAmount">Rp 0</div>
-                <div class="modal-actions">
-                    <button class="modal-btn secondary" onclick="closeWithdrawalModal()">Batal</button>
-                    <button class="modal-btn primary" onclick="processWithdrawal()">Konfirmasi</button>
+            </section>
+            
+            <!-- Penarikan Section -->
+            <section id="penarikan" class="content-section">
+                <div class="card">
+                    <h2><i class="fas fa-wallet"></i> Penarikan Dana</h2>
+                    <p>Lakukan penarikan dana dari saldo profit Anda. Pastikan saldo mencukupi untuk penarikan.</p>
+                    
+                    <div class="dashboard-card" style="max-width: 400px; margin: 20px auto;">
+                        <h3>Saldo Tersedia untuk Penarikan</h3>
+                        <div class="value" id="withdrawable-balance">Rp 0</div>
+                    </div>
+                    
+                    <div style="max-width: 400px; margin: 0 auto;">
+                        <div class="input-group">
+                            <label for="bank-name">Nama Bank</label>
+                            <select id="bank-name" required>
+                                <option value="">Pilih Bank</option>
+                                <option value="BCA">BCA</option>
+                                <option value="BRI">BRI</option>
+                                <option value="BNI">BNI</option>
+                                <option value="Mandiri">Mandiri</option>
+                                <option value="CIMB">CIMB</option>
+                                <option value="Danamon">Danamon</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="account-number">Nomor Rekening</label>
+                            <input type="text" id="account-number" placeholder="Masukkan nomor rekening" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="account-name">Nama Pemilik Rekening</label>
+                            <input type="text" id="account-name" placeholder="Masukkan nama pemilik rekening" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="withdraw-amount">Jumlah Penarikan</label>
+                            <input type="number" id="withdraw-amount" placeholder="Masukkan jumlah penarikan">
+                        </div>
+                        
+                        <button id="withdraw-btn" class="btn">
+                            <i class="fas fa-money-bill-wave"></i> Ajukan Penarikan
+                        </button>
+                    </div>
                 </div>
-            </div>
+                
+                <div class="card">
+                    <h2><i class="fas fa-history"></i> Riwayat Penarikan</h2>
+                    <div id="withdrawal-history" style="color: var(--gray); text-align: center; padding: 20px;">
+                        Belum ada riwayat penarikan
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Pengaturan Section -->
+            <section id="pengaturan" class="content-section">
+                <div class="card">
+                    <h2><i class="fas fa-cog"></i> Pengaturan Akun</h2>
+                    
+                    <div style="max-width: 500px;">
+                        <div class="input-group">
+                            <label for="user-name">Nama Pengguna</label>
+                            <input type="text" id="user-name" value="John Doe">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="user-email">Email</label>
+                            <input type="email" id="user-email" value="johndoe@example.com">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="user-password">Password Baru</label>
+                            <input type="password" id="user-password" placeholder="Masukkan password baru">
+                        </div>
+                        
+                        <button class="btn">
+                            <i class="fas fa-save"></i> Simpan Perubahan
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2><i class="fas fa-bell"></i> Notifikasi</h2>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
+                        <span>Notifikasi Profit Harian</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
+                        <span>Notifikasi Penarikan</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Admin Section (Hidden for regular users) -->
+            <section id="admin" class="content-section" style="display: none;">
+                <div class="card">
+                    <h2><i class="fas fa-user-shield"></i> Panel Admin</h2>
+                    
+                    <div class="admin-panel">
+                        <h3>Kelola Pengguna</h3>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>Saldo</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-table">
+                                <!-- Users will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="admin-panel">
+                        <h3>Permintaan Penarikan</h3>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Bank</th>
+                                    <th>No. Rekening</th>
+                                    <th>Jumlah</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="withdrawals-table">
+                                <!-- Withdrawals will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
         </div>
         
-        <!-- Modal Berhasil -->
-        <div id="successModal" class="modal">
-            <div class="modal-content">
-                <div class="modal-title">Berhasil!</div>
-                <div class="modal-description" id="successMessage">Saldo berhasil ditambahkan</div>
-                <button class="modal-btn primary" onclick="closeSuccessModal()">Tutup</button>
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <ul class="nav-menu">
+                <li>
+                    <a href="#" class="nav-link active" data-target="home">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link" data-target="penarikan">
+                        <i class="fas fa-wallet"></i>
+                        <span>Penarikan</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link" data-target="pengaturan">
+                        <i class="fas fa-cog"></i>
+                        <span>Pengaturan</span>
+                    </a>
+                </li>
+                <li id="admin-nav" style="display: none;">
+                    <a href="#" class="nav-link" data-target="admin">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Admin</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    
+    <!-- Welcome Bonus Modal -->
+    <div id="welcome-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Selamat Datang!</h2>
+                <button class="modal-close">&times;</button>
             </div>
-        </div>
-        
-        <!-- Navigasi Bawah -->
-        <div class="bottom-nav">
-            <div class="nav-item active" onclick="showPage('beranda')">
-                <div class="nav-icon">🏠</div>
-                <div>Beranda</div>
-            </div>
-            <div class="nav-item" onclick="showPage('penarikan')">
-                <div class="nav-icon">💳</div>
-                <div>Penarikan</div>
-            </div>
-            <div class="nav-item" onclick="showPage('pengaturan')">
-                <div class="nav-icon">⚙️</div>
-                <div>Pengaturan</div>
+            <div style="text-align: center; padding: 20px 0;">
+                <i class="fas fa-gift" style="font-size: 60px; color: var(--success); margin-bottom: 20px;"></i>
+                <h3 style="margin-bottom: 10px;">Bonus Selamat Datang</h3>
+                <p style="margin-bottom: 20px; color: var(--gray);">Anda mendapatkan bonus Rp 20.000 untuk memulai investasi Anda!</p>
+                <button id="claim-bonus-btn" class="btn btn-success">
+                    <i class="fas fa-gift"></i> Klaim Bonus
+                </button>
             </div>
         </div>
     </div>
-
+    
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <i class="fas fa-check-circle"></i>
+        <div>
+            <div id="notification-title">Sukses</div>
+            <div id="notification-message">Operasi berhasil dilakukan</div>
+        </div>
+    </div>
+    
     <script>
         // Data aplikasi
-        let saldo = 0;
-        let currentAdId = null;
-        let adInterval = null;
-        let adTimeLeft = 30;
-        let externalAdInterval = null;
-        let externalAdTimeLeft = 30;
-        let withdrawalHistory = [];
+        let userData = {
+            saldo: 1250000,
+            currentLevel: null,
+            dailyProfit: 0,
+            totalProfit: 0,
+            activeInvestment: false,
+            withdrawableBalance: 0,
+            withdrawalHistory: [],
+            isLoggedIn: false,
+            isAdmin: false,
+            bankDetails: {
+                bankName: '',
+                accountNumber: '',
+                accountName: ''
+            }
+        };
         
-        // Data iklan simulasi
-        const ads = [
-            { id: 1, brand: "SnackJoy", message: "Nikmati kelezatan yang tak terlupakan!", emoji: "🍿" },
-            { id: 2, brand: "PowerDrink", message: "Energi ekstra untuk hari Anda!", emoji: "⚡" },
-            { id: 3, brand: "TechGadget", message: "Teknologi terbaru untuk hidup lebih baik!", emoji: "📱" },
-            { id: 4, brand: "StyleTrend", message: "Tampil percaya diri dengan gaya terbaru!", emoji: "👔" }
-        ];
+        // Level data
+        const levelData = {
+            1: { profit: 20000, minInvestment: 100000, minWithdrawal: 50000 },
+            2: { profit: 30000, minInvestment: 200000, minWithdrawal: 50000 },
+            3: { profit: 50000, minInvestment: 500000, minWithdrawal: 100000 },
+            4: { profit: 100000, minInvestment: 1000000, minWithdrawal: 200000 }
+        };
         
-        // URL iklan eksternal
-        const externalAdUrl = "https://female-agent.com/d.mqFVzDdjGjNyvZZpG/UI/Ne_m/9/u/ZCUHlEkjPZTgYp2eOQDMILzHNETnA/tcN/jCYP4fMPj/M/1lM-QK";
+        // Admin credentials
+        const adminCredentials = {
+            email: 'admin@wealthgrow.com',
+            password: 'admin123'
+        };
         
-        // Fungsi untuk verifikasi API
-        function verifyAPI() {
-            console.log("API Terverifikasi: 815c4b13e2b441dcfbe4e65e5e23e5d3a7553e32");
-            return true;
-        }
+        // DOM Elements
+        const authSection = document.getElementById('auth-section');
+        const appSection = document.getElementById('app-section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const contentSections = document.querySelectorAll('.content-section');
+        const levelCards = document.querySelectorAll('.level-card');
+        const investBtn = document.getElementById('invest-btn');
+        const withdrawBtn = document.getElementById('withdraw-btn');
+        const notification = document.getElementById('notification');
+        const authTabs = document.querySelectorAll('.auth-tab');
+        const authForms = document.querySelectorAll('.auth-form');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const userAvatar = document.getElementById('user-avatar');
+        const logoutMenu = document.getElementById('logout-menu');
+        const logoutBtn = document.getElementById('logout-btn');
+        const welcomeModal = document.getElementById('welcome-modal');
+        const claimBonusBtn = document.getElementById('claim-bonus-btn');
+        const modalClose = document.querySelector('.modal-close');
+        const adminLoginBtn = document.getElementById('admin-login-btn');
+        const adminNav = document.getElementById('admin-nav');
+        const usersTable = document.getElementById('users-table');
+        const withdrawalsTable = document.getElementById('withdrawals-table');
         
-        // Fungsi untuk menampilkan halaman
-        function showPage(pageId) {
-            // Sembunyikan semua halaman
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
+        // Authentication Tabs
+        authTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.getAttribute('data-tab');
+                
+                // Update active tab
+                authTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Show corresponding form
+                authForms.forEach(form => {
+                    form.classList.remove('active');
+                    if (form.id === `${targetTab}-form`) {
+                        form.classList.add('active');
+                    }
+                });
             });
+        });
+        
+        // Admin Login Button
+        adminLoginBtn.addEventListener('click', () => {
+            document.getElementById('login-email').value = adminCredentials.email;
+            document.getElementById('login-password').value = adminCredentials.password;
+        });
+        
+        // Login Form
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
             
-            // Tampilkan halaman yang dipilih
-            document.getElementById(pageId).classList.add('active');
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
             
-            // Update navigasi
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
+            // Check if admin login
+            if (email === adminCredentials.email && password === adminCredentials.password) {
+                // Admin login
+                userData.isAdmin = true;
+                userData.isLoggedIn = true;
+                
+                // Show admin panel
+                authSection.style.display = 'none';
+                appSection.style.display = 'block';
+                adminNav.style.display = 'block';
+                
+                // Update admin panel
+                updateAdminPanel();
+                
+                showNotification('Selamat Datang Admin', 'Anda masuk sebagai administrator', 'success');
+                return;
+            }
             
-            // Aktifkan item navigasi yang sesuai
-            document.querySelectorAll('.nav-item').forEach(item => {
-                if (item.textContent.includes(getNavText(pageId))) {
-                    item.classList.add('active');
+            // Regular user login
+            if (email && password) {
+                // Check if user exists in localStorage
+                const users = JSON.parse(localStorage.getItem('wealthGrowUsers')) || {};
+                
+                if (users[email] && users[email].password === password) {
+                    // Login successful
+                    userData = { ...userData, ...users[email].userData };
+                    userData.isLoggedIn = true;
+                    
+                    // Update UI with user data
+                    document.getElementById('user-name').value = users[email].name;
+                    document.getElementById('user-email').value = email;
+                    userAvatar.textContent = users[email].name.split(' ').map(n => n[0]).join('').toUpperCase();
+                    
+                    // Show app and hide auth
+                    authSection.style.display = 'none';
+                    appSection.style.display = 'block';
+                    
+                    // Update dashboard
+                    updateDashboard();
+                    
+                    // Show welcome bonus if new user
+                    if (users[email].isNewUser) {
+                        setTimeout(() => {
+                            welcomeModal.classList.add('show');
+                        }, 1000);
+                    }
+                    
+                    showNotification('Selamat Datang', `Halo ${users[email].name}!`, 'success');
+                } else {
+                    showNotification('Login Gagal', 'Email atau password salah!', 'error');
                 }
-            });
-            
-            // Update saldo di halaman penarikan
-            if (pageId === 'penarikan') {
-                document.getElementById('saldo-penarikan').textContent = saldo;
-                updateWithdrawalHistory();
-            }
-        }
-        
-        // Helper untuk mendapatkan teks navigasi
-        function getNavText(pageId) {
-            switch(pageId) {
-                case 'beranda': return 'Beranda';
-                case 'penarikan': return 'Penarikan';
-                case 'pengaturan': return 'Pengaturan';
-                default: return '';
-            }
-        }
-        
-        // Fungsi untuk memulai menonton iklan
-        function startAd(adId) {
-            // Verifikasi API sebelum memulai iklan
-            if (!verifyAPI()) {
-                alert("API tidak terverifikasi. Silakan periksa konfigurasi.");
-                return;
-            }
-            
-            currentAdId = adId;
-            adTimeLeft = 30;
-            
-            // Tampilkan konten iklan yang sesuai
-            const ad = ads.find(a => a.id === adId);
-            document.getElementById('adBrand').textContent = `Iklan ${ad.brand}`;
-            document.getElementById('adMessage').textContent = ad.message;
-            document.querySelector('#adContent div div:last-child').textContent = ad.emoji;
-            
-            // Tampilkan modal iklan
-            document.getElementById('adModal').style.display = 'flex';
-            document.getElementById('adProgress').style.width = '0%';
-            document.getElementById('adTimer').textContent = `Sisa waktu: ${adTimeLeft} detik`;
-            
-            // Nonaktifkan tombol tonton untuk iklan ini
-            document.querySelectorAll('.watch-btn')[adId-1].disabled = true;
-            document.querySelectorAll('.watch-btn')[adId-1].textContent = 'Ditonton';
-            
-            // Mulai timer
-            adInterval = setInterval(updateAdTimer, 1000);
-        }
-        
-        // Fungsi untuk memulai menonton iklan eksternal
-        function startExternalAd() {
-            // Verifikasi API sebelum memulai iklan
-            if (!verifyAPI()) {
-                alert("API tidak terverifikasi. Silakan periksa konfigurasi.");
-                return;
-            }
-            
-            externalAdTimeLeft = 30;
-            
-            // Tampilkan modal iklan eksternal
-            document.getElementById('externalAdModal').style.display = 'flex';
-            document.getElementById('externalAdProgress').style.width = '0%';
-            document.getElementById('externalAdTimer').textContent = `Sisa waktu: ${externalAdTimeLeft} detik`;
-            
-            // Nonaktifkan tombol tonton untuk iklan eksternal
-            document.querySelectorAll('.watch-btn')[4].disabled = true;
-            document.querySelectorAll('.watch-btn')[4].textContent = 'Ditonton';
-            
-            // Mulai timer
-            externalAdInterval = setInterval(updateExternalAdTimer, 1000);
-            
-            // Simulasikan loading iklan
-            setTimeout(() => {
-                const adContent = document.getElementById('externalAdContent');
-                adContent.innerHTML = `
-                    <div style="text-align: center;">
-                        <div style="font-size: 24px; margin-bottom: 10px;">Iklan Premium</div>
-                        <div style="font-size: 16px; margin-bottom: 20px;">Terima kasih telah menonton iklan premium kami!</div>
-                        <div style="font-size: 36px; margin-bottom: 20px;">🎉</div>
-                        <p style="font-size: 14px; margin-bottom: 20px;">Anda akan mendapatkan Rp 1.000 setelah iklan selesai</p>
-                        <a href="${externalAdUrl}" target="_blank" class="ad-redirect-btn">
-                            Kunjungi Situs Sponsor
-                        </a>
-                    </div>
-                `;
-            }, 2000);
-        }
-        
-        // Fungsi untuk update timer iklan
-        function updateAdTimer() {
-            adTimeLeft--;
-            
-            // Update progress bar
-            const progress = ((30 - adTimeLeft) / 30) * 100;
-            document.getElementById('adProgress').style.width = `${progress}%`;
-            
-            // Update timer
-            document.getElementById('adTimer').textContent = `Sisa waktu: ${adTimeLeft} detik`;
-            
-            // Jika waktu habis
-            if (adTimeLeft <= 0) {
-                finishAd();
-            }
-        }
-        
-        // Fungsi untuk update timer iklan eksternal
-        function updateExternalAdTimer() {
-            externalAdTimeLeft--;
-            
-            // Update progress bar
-            const progress = ((30 - externalAdTimeLeft) / 30) * 100;
-            document.getElementById('externalAdProgress').style.width = `${progress}%`;
-            
-            // Update timer
-            document.getElementById('externalAdTimer').textContent = `Sisa waktu: ${externalAdTimeLeft} detik`;
-            
-            // Jika waktu habis
-            if (externalAdTimeLeft <= 0) {
-                finishExternalAd();
-            }
-        }
-        
-        // Fungsi untuk menyelesaikan menonton iklan
-        function finishAd() {
-            clearInterval(adInterval);
-            
-            // Tambah saldo
-            saldo += 500;
-            updateSaldo();
-            
-            // Tutup modal
-            document.getElementById('adModal').style.display = 'none';
-            
-            // Tampilkan modal sukses
-            document.getElementById('successMessage').textContent = 'Selamat! Anda mendapatkan Rp 500 dari menonton iklan.';
-            document.getElementById('successModal').style.display = 'flex';
-            
-            // Simpan data ke localStorage
-            saveUserData();
-        }
-        
-        // Fungsi untuk menyelesaikan menonton iklan eksternal
-        function finishExternalAd() {
-            clearInterval(externalAdInterval);
-            
-            // Tambah saldo (lebih tinggi untuk iklan eksternal)
-            saldo += 1000;
-            updateSaldo();
-            
-            // Tutup modal
-            document.getElementById('externalAdModal').style.display = 'none';
-            
-            // Tampilkan modal sukses
-            document.getElementById('successMessage').textContent = 'Selamat! Anda mendapatkan Rp 1.000 dari menonton iklan premium.';
-            document.getElementById('successModal').style.display = 'flex';
-            
-            // Simpan data ke localStorage
-            saveUserData();
-        }
-        
-        // Fungsi untuk membatalkan iklan
-        function cancelAd() {
-            clearInterval(adInterval);
-            document.getElementById('adModal').style.display = 'none';
-            
-            // Aktifkan kembali tombol tonton
-            if (currentAdId) {
-                document.querySelectorAll('.watch-btn')[currentAdId-1].disabled = false;
-                document.querySelectorAll('.watch-btn')[currentAdId-1].textContent = 'Tonton';
-            }
-        }
-        
-        // Fungsi untuk membatalkan iklan eksternal
-        function cancelExternalAd() {
-            clearInterval(externalAdInterval);
-            document.getElementById('externalAdModal').style.display = 'none';
-            
-            // Aktifkan kembali tombol tonton
-            document.querySelectorAll('.watch-btn')[4].disabled = false;
-            document.querySelectorAll('.watch-btn')[4].textContent = 'Tonton';
-        }
-        
-        // Fungsi untuk update saldo
-        function updateSaldo() {
-            document.getElementById('saldo').textContent = saldo;
-            if (document.getElementById('saldo-penarikan')) {
-                document.getElementById('saldo-penarikan').textContent = saldo;
-            }
-        }
-        
-        // Fungsi untuk menampilkan modal penarikan
-        function showWithdrawalModal(type) {
-            let title = '';
-            let description = '';
-            let minAmount = 0;
-            
-            switch(type) {
-                case 'bank':
-                    title = 'Transfer Bank';
-                    description = 'Anda akan melakukan penarikan saldo ke rekening bank sebesar';
-                    minAmount = 10000;
-                    break;
-                case 'ewallet':
-                    title = 'E-Wallet';
-                    description = 'Anda akan melakukan penarikan saldo ke e-wallet sebesar';
-                    minAmount = 5000;
-                    break;
-                case 'pulsa':
-                    title = 'Pulsa';
-                    description = 'Anda akan menukar saldo menjadi pulsa sebesar';
-                    minAmount = 5000;
-                    break;
-            }
-            
-            if (saldo < minAmount) {
-                document.getElementById('successMessage').textContent = `Saldo tidak mencukupi. Minimal penarikan Rp ${minAmount}.`;
-                document.getElementById('successModal').style.display = 'flex';
-                return;
-            }
-            
-            document.getElementById('withdrawalTitle').textContent = title;
-            document.getElementById('withdrawalDescription').textContent = description;
-            document.getElementById('withdrawalAmount').textContent = `Rp ${saldo}`;
-            document.getElementById('withdrawalModal').style.display = 'flex';
-        }
-        
-        // Fungsi untuk menutup modal penarikan
-        function closeWithdrawalModal() {
-            document.getElementById('withdrawalModal').style.display = 'none';
-        }
-        
-        // Fungsi untuk memproses penarikan
-        function processWithdrawal() {
-            // Simpan riwayat penarikan
-            const withdrawal = {
-                type: document.getElementById('withdrawalTitle').textContent,
-                amount: saldo,
-                date: new Date().toLocaleDateString('id-ID'),
-                status: 'Diproses'
-            };
-            
-            withdrawalHistory.unshift(withdrawal);
-            
-            // Reset saldo
-            saldo = 0;
-            updateSaldo();
-            
-            // Tutup modal
-            closeWithdrawalModal();
-            
-            // Tampilkan modal sukses
-            document.getElementById('successMessage').textContent = 'Penarikan saldo berhasil! Dana akan diproses dalam 1x24 jam.';
-            document.getElementById('successModal').style.display = 'flex';
-            
-            // Update riwayat penarikan
-            updateWithdrawalHistory();
-            
-            // Simpan data ke localStorage
-            saveUserData();
-        }
-        
-        // Fungsi untuk update riwayat penarikan
-        function updateWithdrawalHistory() {
-            const historyContainer = document.getElementById('riwayat-penarikan');
-            historyContainer.innerHTML = '';
-            
-            if (withdrawalHistory.length === 0) {
-                historyContainer.innerHTML = '<div style="text-align: center; color: #666; padding: 20px;">Belum ada riwayat penarikan</div>';
-                return;
-            }
-            
-            withdrawalHistory.forEach(item => {
-                const historyItem = document.createElement('div');
-                historyItem.className = 'history-item';
-                historyItem.innerHTML = `
-                    <div class="history-info">
-                        <div class="history-title">${item.type}</div>
-                        <div class="history-date">${item.date} - ${item.status}</div>
-                    </div>
-                    <div class="history-amount">- Rp ${item.amount}</div>
-                `;
-                historyContainer.appendChild(historyItem);
-            });
-        }
-        
-        // Fungsi untuk menutup modal sukses
-        function closeSuccessModal() {
-            document.getElementById('successModal').style.display = 'none';
-        }
-        
-        // Fungsi untuk menyimpan data pengguna
-        function saveUserData() {
-            const userData = {
-                saldo: saldo,
-                withdrawalHistory: withdrawalHistory,
-                lastUpdate: new Date().toISOString()
-            };
-            localStorage.setItem('adWatchUserData', JSON.stringify(userData));
-        }
-        
-        // Fungsi untuk memuat data pengguna
-        function loadUserData() {
-            const savedData = localStorage.getItem('adWatchUserData');
-            if (savedData) {
-                const userData = JSON.parse(savedData);
-                saldo = userData.saldo || 0;
-                withdrawalHistory = userData.withdrawalHistory || [];
-            }
-        }
-        
-        // Inisialisasi
-        document.addEventListener('DOMContentLoaded', function() {
-            // Verifikasi API saat halaman dimuat
-            verifyAPI();
-            
-            // Muat data pengguna
-            loadUserData();
-            
-            updateSaldo();
-            updateWithdrawalHistory();
-            
-            // Tambahkan beberapa riwayat penarikan contoh jika kosong
-            if (withdrawalHistory.length === 0) {
-                withdrawalHistory = [
-                    { type: 'Transfer Bank', amount: 15000, date: '15/03/2023', status: 'Selesai' },
-                    { type: 'E-Wallet', amount: 5000, date: '10/03/2023', status: 'Selesai' }
-                ];
-                updateWithdrawalHistory();
+            } else {
+                showNotification('Peringatan', 'Harap isi semua field!', 'error');
             }
         });
+        
+        // Register Form
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+            
+            if (name && email && password && confirmPassword) {
+                if (password !== confirmPassword) {
+                    showNotification('Peringatan', 'Password tidak cocok!', 'error');
+                    return;
+                }
+                
+                // Get users from localStorage
+                const users = JSON.parse(localStorage.getItem('wealthGrowUsers')) || {};
+                
+                // Check if user already exists
+                if (users[email]) {
+                    showNotification('Peringatan', 'Email sudah terdaftar!', 'error');
+                    return;
+                }
+                
+                // Create new user with initial data
+                const initialUserData = {
+                    saldo: 1250000,
+                    currentLevel: null,
+                    dailyProfit: 0,
+                    totalProfit: 0,
+                    activeInvestment: false,
+                    withdrawableBalance: 0,
+                    withdrawalHistory: [],
+                    isNewUser: true,
+                    bankDetails: {
+                        bankName: '',
+                        accountNumber: '',
+                        accountName: ''
+                    }
+                };
+                
+                users[email] = {
+                    name: name,
+                    password: password,
+                    userData: initialUserData
+                };
+                
+                // Save to localStorage
+                localStorage.setItem('wealthGrowUsers', JSON.stringify(users));
+                
+                // Switch to login tab
+                authTabs.forEach(t => t.classList.remove('active'));
+                authTabs[0].classList.add('active');
+                
+                authForms.forEach(form => {
+                    form.classList.remove('active');
+                    if (form.id === 'login-form') {
+                        form.classList.add('active');
+                    }
+                });
+                
+                showNotification('Pendaftaran Berhasil', 'Akun berhasil dibuat! Silakan login.', 'success');
+                
+                // Clear form
+                registerForm.reset();
+            } else {
+                showNotification('Peringatan', 'Harap isi semua field!', 'error');
+            }
+        });
+        
+        // User Avatar Click
+        userAvatar.addEventListener('click', () => {
+            logoutMenu.classList.toggle('show');
+        });
+        
+        // Logout Button
+        logoutBtn.addEventListener('click', () => {
+            // Save user data before logout if not admin
+            if (!userData.isAdmin) {
+                const email = document.getElementById('user-email').value;
+                const users = JSON.parse(localStorage.getItem('wealthGrowUsers')) || {};
+                
+                if (users[email]) {
+                    users[email].userData = userData;
+                    localStorage.setItem('wealthGrowUsers', JSON.stringify(users));
+                }
+            }
+            
+            // Reset user data
+            userData = {
+                saldo: 1250000,
+                currentLevel: null,
+                dailyProfit: 0,
+                totalProfit: 0,
+                activeInvestment: false,
+                withdrawableBalance: 0,
+                withdrawalHistory: [],
+                isLoggedIn: false,
+                isAdmin: false,
+                bankDetails: {
+                    bankName: '',
+                    accountNumber: '',
+                    accountName: ''
+                }
+            };
+            
+            // Reset forms and show auth
+            loginForm.reset();
+            registerForm.reset();
+            authSection.style.display = 'flex';
+            appSection.style.display = 'none';
+            logoutMenu.classList.remove('show');
+            adminNav.style.display = 'none';
+            
+            showNotification('Berhasil Logout', 'Sampai jumpa kembali!', 'success');
+        });
+        
+        // Navigation
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const target = link.getAttribute('data-target');
+                
+                // Update active nav link
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Show corresponding section
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                    if (section.id === target) {
+                        section.classList.add('active');
+                    }
+                });
+                
+                // Update admin panel if needed
+                if (target === 'admin') {
+                    updateAdminPanel();
+                }
+            });
+        });
+        
+        // Level Selection
+        levelCards.forEach(card => {
+            card.addEventListener('click', () => {
+                // Remove selected class from all cards
+                levelCards.forEach(c => c.classList.remove('selected'));
+                
+                // Add selected class to clicked card
+                card.classList.add('selected');
+                
+                // Update selected level
+                userData.currentLevel = parseInt(card.getAttribute('data-level'));
+                userData.dailyProfit = parseInt(card.getAttribute('data-profit'));
+                
+                // Update dashboard
+                updateDashboard();
+            });
+        });
+        
+        // Invest Button
+        investBtn.addEventListener('click', () => {
+            if (!userData.currentLevel) {
+                showNotification('Peringatan', 'Pilih level investasi terlebih dahulu!', 'error');
+                return;
+            }
+            
+            const level = levelData[userData.currentLevel];
+            
+            if (userData.saldo < level.minInvestment) {
+                showNotification('Peringatan', `Saldo tidak mencukupi! Minimal investasi: Rp ${level.minInvestment.toLocaleString()}`, 'error');
+                return;
+            }
+            
+            // Deduct investment amount
+            userData.saldo -= level.minInvestment;
+            userData.activeInvestment = true;
+            userData.withdrawableBalance += level.minInvestment;
+            
+            // Update dashboard
+            updateDashboard();
+            
+            showNotification('Investasi Berhasil', `Anda berhasil berinvestasi di Level ${userData.currentLevel}`, 'success');
+        });
+        
+        // Withdraw Button
+        withdrawBtn.addEventListener('click', () => {
+            const bankName = document.getElementById('bank-name').value;
+            const accountNumber = document.getElementById('account-number').value;
+            const accountName = document.getElementById('account-name').value;
+            const withdrawAmount = parseInt(document.getElementById('withdraw-amount').value);
+            
+            if (!bankName || !accountNumber || !accountName) {
+                showNotification('Peringatan', 'Harap lengkapi data rekening bank!', 'error');
+                return;
+            }
+            
+            if (!withdrawAmount || withdrawAmount <= 0) {
+                showNotification('Peringatan', 'Masukkan jumlah penarikan yang valid!', 'error');
+                return;
+            }
+            
+            if (userData.currentLevel) {
+                const level = levelData[userData.currentLevel];
+                
+                if (withdrawAmount < level.minWithdrawal) {
+                    showNotification('Peringatan', `Minimal penarikan: Rp ${level.minWithdrawal.toLocaleString()}`, 'error');
+                    return;
+                }
+            }
+            
+            if (withdrawAmount > userData.withdrawableBalance) {
+                showNotification('Peringatan', 'Saldo tidak mencukupi untuk penarikan!', 'error');
+                return;
+            }
+            
+            // Save bank details
+            userData.bankDetails = {
+                bankName: bankName,
+                accountNumber: accountNumber,
+                accountName: accountName
+            };
+            
+            // Add to withdrawal history with pending status
+            const withdrawal = {
+                amount: withdrawAmount,
+                date: new Date().toLocaleDateString('id-ID'),
+                bankDetails: userData.bankDetails,
+                status: 'pending'
+            };
+            
+            userData.withdrawalHistory.unshift(withdrawal);
+            updateWithdrawalHistory();
+            
+            // Update dashboard
+            updateDashboard();
+            
+            // Clear input
+            document.getElementById('withdraw-amount').value = '';
+            
+            showNotification('Penarikan Diajukan', `Permintaan penarikan Rp ${withdrawAmount.toLocaleString()} telah diajukan`, 'success');
+        });
+        
+        // Claim Bonus Button
+        claimBonusBtn.addEventListener('click', () => {
+            userData.saldo += 20000;
+            updateDashboard();
+            
+            // Mark user as not new anymore
+            const email = document.getElementById('user-email').value;
+            const users = JSON.parse(localStorage.getItem('wealthGrowUsers')) || {};
+            
+            if (users[email]) {
+                users[email].userData = userData;
+                users[email].isNewUser = false;
+                localStorage.setItem('wealthGrowUsers', JSON.stringify(users));
+            }
+            
+            welcomeModal.classList.remove('show');
+            showNotification('Bonus Diklaim', 'Anda mendapatkan bonus Rp 20.000!', 'success');
+        });
+        
+        // Modal Close
+        modalClose.addEventListener('click', () => {
+            welcomeModal.classList.remove('show');
+            
+            // Mark user as not new anymore even if they don't claim
+            const email = document.getElementById('user-email').value;
+            const users = JSON.parse(localStorage.getItem('wealthGrowUsers')) || {};
+            
+            if (users[email]) {
+                users[email].isNewUser = false;
+                localStorage.setItem('wealthGrowUsers', JSON.stringify(users));
+            }
+        });
+        
+        // Update Dashboard
+        function updateDashboard() {
+            document.getElementById('saldo-amount').textContent = userData.saldo.toLocaleString();
+            document.getElementById('current-level').textContent = userData.currentLevel ? `Level ${userData.currentLevel}` : '-';
+            document.getElementById('daily-profit').textContent = `Rp ${userData.dailyProfit.toLocaleString()}`;
+            document.getElementById('total-profit').textContent = `Rp ${userData.totalProfit.toLocaleString()}`;
+            document.getElementById('active-investment').textContent = userData.activeInvestment ? 'Aktif' : 'Tidak Aktif';
+            document.getElementById('withdrawable-balance').textContent = `Rp ${userData.withdrawableBalance.toLocaleString()}`;
+            
+            // Update active investment status
+            if (userData.activeInvestment) {
+                document.getElementById('active-investment').style.color = 'var(--success)';
+            } else {
+                document.getElementById('active-investment').style.color = 'var(--danger)';
+            }
+        }
+        
+        // Update Withdrawal History
+        function updateWithdrawalHistory() {
+            const historyContainer = document.getElementById('withdrawal-history');
+            
+            if (userData.withdrawalHistory.length === 0) {
+                historyContainer.innerHTML = 'Belum ada riwayat penarikan';
+                return;
+            }
+            
+            let historyHTML = '';
+            userData.withdrawalHistory.forEach(item => {
+                let statusClass = '';
+                let statusText = '';
+                
+                switch(item.status) {
+                    case 'pending':
+                        statusClass = 'status-pending';
+                        statusText = 'Menunggu';
+                        break;
+                    case 'approved':
+                        statusClass = 'status-approved';
+                        statusText = 'Disetujui';
+                        break;
+                    case 'rejected':
+                        statusClass = 'status-rejected';
+                        statusText = 'Ditolak';
+                        break;
+                }
+                
+                historyHTML += `
+                    <div class="history-item">
+                        <div>
+                            <div class="history-amount">Rp ${item.amount.toLocaleString()}</div>
+                            <div class="history-date">${item.date} - ${item.bankDetails.bankName} - ${item.bankDetails.accountNumber}</div>
+                        </div>
+                        <div class="${statusClass}">
+                            ${statusText}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            historyContainer.innerHTML = historyHTML;
+        }
+        
+        // Update Admin Panel
+        function updateAdminPanel() {
+            // Update users table
+            const users = JSON.parse(localStorage.getItem('wealthGrowUsers')) || {};
+            let usersHTML = '';
+            
+            Object.keys(users).forEach(email => {
+                const user = users[email];
+                usersHTML += `
+                    <tr>
+                        <td>${user.name}</td>
+                        <td>${email}</td>
+                        <td>Rp ${user.userData.saldo.toLocaleString()}</td>
+                        <td>${user.userData.activeInvestment ? 'Aktif' : 'Tidak Aktif'}</td>
+                        <td>
+                            <button class="btn" style="padding: 5px 10px; font-size: 12px;" onclick="deleteUser('${email}')">
+                                <i class="fas fa-trash"></i> Hapus
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            usersTable.innerHTML = usersHTML;
+            
+            // Update withdrawals table
+            let withdrawalsHTML = '';
+            Object.keys(users).forEach(email => {
+                const user = users[email];
+                user.userData.withdrawalHistory.forEach(withdrawal => {
+                    if (withdrawal.status === 'pending') {
+                        withdrawalsHTML += `
+                            <tr>
+                                <td>${user.name}</td>
+                                <td>${withdrawal.bankDetails.bankName}</td>
+                                <td>${withdrawal.bankDetails.accountNumber}</td>
+                                <td>Rp ${withdrawal.amount.toLocaleString()}</td>
+                                <td class="status-pending">Menunggu</td>
+                                <td>
+                                    <button class="btn btn-success" style="padding: 5px 10px; font-size: 12px; margin-right: 5px;" 
+                                        onclick="approveWithdrawal('${email}', ${withdrawal.amount})">
+                                        <i class="fas fa-check"></i> Setujui
+                                    </button>
+                                    <button class="btn" style="padding: 5px 10px; font-size: 12px; background: var(--danger);" 
+                                        onclick="rejectWithdrawal('${email}', ${withdrawal.amount})">
+                                        <i class="fas fa-times"></i> Tolak
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    }
+                });
+            });
+            
+            withdrawalsTable.innerHTML = withdrawalsHTML;
+        }
+        
+        // Admin Functions
+        window.deleteUser = function(email) {
+            if (confirm(`Apakah Anda yakin ingin menghapus pengguna ${email}?`)) {
+                const users = JSON.parse(localStorage.getItem('wealthGrowUsers')) || {};
+                delete users[email];
+                localStorage.setItem('wealthGrowUsers', JSON.stringify(users));
+                updateAdminPanel();
+                showNotification('Pengguna Dihapus', `Pengguna ${email} berhasil dihapus`, 'success');
+            }
+        };
+        
+        window.approveWithdrawal = function(email, amount) {
+            const users = JSON.parse(localStorage.getItem('wealthGrowUsers')) || {};
+            const user = users[email];
+            
+            if (user) {
+                // Find the pending withdrawal and update its status
+                user.userData.withdrawalHistory.forEach(withdrawal => {
+                    if (withdrawal.amount === amount && withdrawal.status === 'pending') {
+                        withdrawal.status = 'approved';
+                    }
+                });
+                
+                // Update user data
+                localStorage.setItem('wealthGrowUsers', JSON.stringify(users));
+                updateAdminPanel();
+                showNotification('Penarikan Disetujui', `Penarikan Rp ${amount.toLocaleString()} untuk ${user.name} telah disetujui`, 'success');
+            }
+        };
+        
+        window.rejectWithdrawal = function(email, amount) {
+            const users = JSON.parse(localStorage.getItem('wealthGrowUsers')) || {};
+            const user = users[email];
+            
+            if (user) {
+                // Find the pending withdrawal and update its status
+                user.userData.withdrawalHistory.forEach(withdrawal => {
+                    if (withdrawal.amount === amount && withdrawal.status === 'pending') {
+                        withdrawal.status = 'rejected';
+                        // Return the amount to withdrawable balance
+                        user.userData.withdrawableBalance += amount;
+                    }
+                });
+                
+                // Update user data
+                localStorage.setItem('wealthGrowUsers', JSON.stringify(users));
+                updateAdminPanel();
+                showNotification('Penarikan Ditolak', `Penarikan Rp ${amount.toLocaleString()} untuk ${user.name} telah ditolak`, 'success');
+            }
+        };
+        
+        // Show Notification
+        function showNotification(title, message, type) {
+            const notificationTitle = document.getElementById('notification-title');
+            const notificationMessage = document.getElementById('notification-message');
+            const notificationIcon = notification.querySelector('i');
+            
+            notificationTitle.textContent = title;
+            notificationMessage.textContent = message;
+            
+            // Update icon based on type
+            notificationIcon.className = 'fas ' + 
+                (type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle');
+            
+            // Update notification class
+            notification.className = 'notification ' + type;
+            
+            // Show notification
+            notification.classList.add('show');
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Simulate daily profit (for demo purposes)
+        function simulateDailyProfit() {
+            if (userData.activeInvestment && !userData.isAdmin) {
+                userData.totalProfit += userData.dailyProfit;
+                userData.withdrawableBalance += userData.dailyProfit;
+                updateDashboard();
+                
+                showNotification('Profit Harian', `Anda mendapatkan profit harian sebesar Rp ${userData.dailyProfit.toLocaleString()}`, 'success');
+            }
+        }
+        
+        // Initialize
+        function init() {
+            updateDashboard();
+            updateWithdrawalHistory();
+            
+            // Simulate daily profit every 30 seconds for demo
+            setInterval(simulateDailyProfit, 30000);
+        }
+        
+        // Run initialization when page loads
+        window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
