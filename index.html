@@ -6,6 +6,7 @@
     <title>WealthGrow - Platform Investasi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* CSS yang sama seperti sebelumnya */
         * {
             margin: 0;
             padding: 0;
@@ -792,11 +793,7 @@
                     <i class="fas fa-sign-in-alt"></i> Masuk
                 </button>
                 
-                <div style="text-align: center; margin-top: 15px;">
-                    <button type="button" id="admin-login-btn" style="background: none; border: none; color: var(--primary); cursor: pointer;">
-                        Masuk sebagai Admin
-                    </button>
-                </div>
+                <!-- Tombol "Masuk sebagai Admin" dihapus -->
             </form>
             
             <form id="register-form" class="auth-form">
@@ -1141,7 +1138,8 @@
                 bankName: '',
                 accountNumber: '',
                 accountName: ''
-            }
+            },
+            lastProfitDate: null
         };
         
         // Level data
@@ -1177,7 +1175,6 @@
         const welcomeModal = document.getElementById('welcome-modal');
         const claimBonusBtn = document.getElementById('claim-bonus-btn');
         const modalClose = document.querySelector('.modal-close');
-        const adminLoginBtn = document.getElementById('admin-login-btn');
         const adminNav = document.getElementById('admin-nav');
         const usersTable = document.getElementById('users-table');
         const withdrawalsTable = document.getElementById('withdrawals-table');
@@ -1199,12 +1196,6 @@
                     }
                 });
             });
-        });
-        
-        // Admin Login Button
-        adminLoginBtn.addEventListener('click', () => {
-            document.getElementById('login-email').value = adminCredentials.email;
-            document.getElementById('login-password').value = adminCredentials.password;
         });
         
         // Login Form
@@ -1241,6 +1232,30 @@
                     // Login successful
                     userData = { ...userData, ...users[email].userData };
                     userData.isLoggedIn = true;
+                    
+                    // Calculate daily profit if investment is active
+                    if (userData.activeInvestment && userData.lastProfitDate) {
+                        const lastProfitDate = new Date(userData.lastProfitDate);
+                        const today = new Date();
+                        const daysPassed = Math.floor((today - lastProfitDate) / (1000 * 60 * 60 * 24));
+                        
+                        if (daysPassed > 0) {
+                            // Add profit for each day passed
+                            for (let i = 0; i < daysPassed; i++) {
+                                userData.totalProfit += userData.dailyProfit;
+                                userData.withdrawableBalance += userData.dailyProfit;
+                            }
+                            
+                            // Update last profit date
+                            userData.lastProfitDate = today.toISOString();
+                            
+                            // Save updated data
+                            users[email].userData = userData;
+                            localStorage.setItem('wealthGrowUsers', JSON.stringify(users));
+                            
+                            showNotification('Profit Harian', `Anda mendapatkan profit harian sebesar Rp ${(userData.dailyProfit * daysPassed).toLocaleString()}`, 'success');
+                        }
+                    }
                     
                     // Update UI with user data
                     document.getElementById('user-name').value = users[email].name;
@@ -1308,7 +1323,8 @@
                         bankName: '',
                         accountNumber: '',
                         accountName: ''
-                    }
+                    },
+                    lastProfitDate: null
                 };
                 
                 users[email] = {
@@ -1373,7 +1389,8 @@
                     bankName: '',
                     accountNumber: '',
                     accountName: ''
-                }
+                },
+                lastProfitDate: null
             };
             
             // Reset forms and show auth
@@ -1449,9 +1466,21 @@
             userData.saldo -= level.minInvestment;
             userData.activeInvestment = true;
             userData.withdrawableBalance += level.minInvestment;
+            userData.lastProfitDate = new Date().toISOString();
             
             // Update dashboard
             updateDashboard();
+            
+            // Save to localStorage
+            if (!userData.isAdmin) {
+                const email = document.getElementById('user-email').value;
+                const users = JSON.parse(localStorage.getItem('wealthGrowUsers')) || {};
+                
+                if (users[email]) {
+                    users[email].userData = userData;
+                    localStorage.setItem('wealthGrowUsers', JSON.stringify(users));
+                }
+            }
             
             showNotification('Investasi Berhasil', `Anda berhasil berinvestasi di Level ${userData.currentLevel}`, 'success');
         });
@@ -1505,8 +1534,22 @@
             userData.withdrawalHistory.unshift(withdrawal);
             updateWithdrawalHistory();
             
+            // Update withdrawable balance
+            userData.withdrawableBalance -= withdrawAmount;
+            
             // Update dashboard
             updateDashboard();
+            
+            // Save to localStorage
+            if (!userData.isAdmin) {
+                const email = document.getElementById('user-email').value;
+                const users = JSON.parse(localStorage.getItem('wealthGrowUsers')) || {};
+                
+                if (users[email]) {
+                    users[email].userData = userData;
+                    localStorage.setItem('wealthGrowUsers', JSON.stringify(users));
+                }
+            }
             
             // Clear input
             document.getElementById('withdraw-amount').value = '';
@@ -1742,24 +1785,10 @@
             }, 3000);
         }
         
-        // Simulate daily profit (for demo purposes)
-        function simulateDailyProfit() {
-            if (userData.activeInvestment && !userData.isAdmin) {
-                userData.totalProfit += userData.dailyProfit;
-                userData.withdrawableBalance += userData.dailyProfit;
-                updateDashboard();
-                
-                showNotification('Profit Harian', `Anda mendapatkan profit harian sebesar Rp ${userData.dailyProfit.toLocaleString()}`, 'success');
-            }
-        }
-        
         // Initialize
         function init() {
             updateDashboard();
             updateWithdrawalHistory();
-            
-            // Simulate daily profit every 30 seconds for demo
-            setInterval(simulateDailyProfit, 30000);
         }
         
         // Run initialization when page loads
