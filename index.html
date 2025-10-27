@@ -6,7 +6,6 @@
     <title>WealthGrow - Platform Investasi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* CSS yang sama seperti sebelumnya */
         * {
             margin: 0;
             padding: 0;
@@ -758,6 +757,26 @@
         input:checked + .slider:before {
             transform: translateX(26px);
         }
+        
+        /* Profit Timer */
+        .profit-timer {
+            background: rgba(76, 201, 240, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .profit-timer h3 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .timer-display {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+        }
     </style>
 </head>
 <body>
@@ -792,8 +811,6 @@
                 <button type="submit" class="btn btn-block">
                     <i class="fas fa-sign-in-alt"></i> Masuk
                 </button>
-                
-                <!-- Tombol "Masuk sebagai Admin" dihapus -->
             </form>
             
             <form id="register-form" class="auth-form">
@@ -835,7 +852,7 @@
                         <span>WealthGrow</span>
                     </div>
                     <div class="user-info">
-                        <div class="saldo">Rp <span id="saldo-amount">1.250.000</span></div>
+                        <div class="saldo">Rp <span id="saldo-amount">50.000</span></div>
                         <div class="avatar" id="user-avatar">JD</div>
                         <div class="logout-menu" id="logout-menu">
                             <button id="logout-btn">
@@ -859,8 +876,8 @@
                             <div class="value" id="current-level">-</div>
                         </div>
                         <div class="dashboard-card">
-                            <h3>Profit Harian</h3>
-                            <div class="value" id="daily-profit">Rp 0</div>
+                            <h3>Profit Per Jam</h3>
+                            <div class="value" id="hourly-profit">Rp 0</div>
                         </div>
                         <div class="dashboard-card">
                             <h3>Total Profit</h3>
@@ -875,37 +892,37 @@
                 
                 <div class="card">
                     <h2><i class="fas fa-layer-group"></i> Pilih Level Investasi</h2>
-                    <p>Pilih level investasi yang sesuai dengan kebutuhan Anda. Profit harian akan disesuaikan dengan level yang dipilih.</p>
+                    <p>Pilih level investasi yang sesuai dengan kebutuhan Anda. Profit akan bertambah setiap jam sesuai level yang dipilih.</p>
                     
                     <div class="level-container">
-                        <div class="level-card" data-level="1" data-profit="20000">
+                        <div class="level-card" data-level="1" data-profit="10000">
                             <div class="level-badge">Paling Populer</div>
                             <h3>Level 1 - Pemula</h3>
-                            <div class="profit">Rp 20.000/hari</div>
-                            <div class="description">Investasi awal: Rp 100.000</div>
-                            <div class="description">Minimal penarikan: Rp 50.000</div>
+                            <div class="profit">Rp 10.000/jam</div>
+                            <div class="description">Investasi awal: Rp 50.000</div>
+                            <div class="description">Minimal penarikan: Rp 20.000</div>
                         </div>
                         
-                        <div class="level-card" data-level="2" data-profit="30000">
+                        <div class="level-card" data-level="2" data-profit="15000">
                             <h3>Level 2 - Menengah</h3>
-                            <div class="profit">Rp 30.000/hari</div>
-                            <div class="description">Investasi awal: Rp 200.000</div>
+                            <div class="profit">Rp 15.000/jam</div>
+                            <div class="description">Investasi awal: Rp 100.000</div>
+                            <div class="description">Minimal penarikan: Rp 30.000</div>
+                        </div>
+                        
+                        <div class="level-card" data-level="3" data-profit="25000">
+                            <h3>Level 3 - Profesional</h3>
+                            <div class="profit">Rp 25.000/jam</div>
+                            <div class="description">Investasi awal: Rp 250.000</div>
                             <div class="description">Minimal penarikan: Rp 50.000</div>
                         </div>
                         
-                        <div class="level-card" data-level="3" data-profit="50000">
-                            <h3>Level 3 - Profesional</h3>
-                            <div class="profit">Rp 50.000/hari</div>
-                            <div class="description">Investasi awal: Rp 500.000</div>
-                            <div class="description">Minimal penarikan: Rp 100.000</div>
-                        </div>
-                        
-                        <div class="level-card" data-level="4" data-profit="100000">
+                        <div class="level-card" data-level="4" data-profit="50000">
                             <div class="level-badge">Eksklusif</div>
                             <h3>Level 4 - Premium</h3>
-                            <div class="profit">Rp 100.000/hari</div>
-                            <div class="description">Investasi awal: Rp 1.000.000</div>
-                            <div class="description">Minimal penarikan: Rp 200.000</div>
+                            <div class="profit">Rp 50.000/jam</div>
+                            <div class="description">Investasi awal: Rp 500.000</div>
+                            <div class="description">Minimal penarikan: Rp 100.000</div>
                         </div>
                     </div>
                     
@@ -913,6 +930,16 @@
                         <button id="invest-btn" class="btn btn-success">
                             <i class="fas fa-rocket"></i> Mulai Investasi
                         </button>
+                    </div>
+                </div>
+                
+                <!-- Profit Timer -->
+                <div class="card" id="profit-timer-card" style="display: none;">
+                    <h2><i class="fas fa-clock"></i> Profit Timer</h2>
+                    <div class="profit-timer">
+                        <h3>Profit berikutnya dalam:</h3>
+                        <div class="timer-display" id="profit-timer">01:00:00</div>
+                        <p>Profit akan ditambahkan secara otomatis setiap jam</p>
                     </div>
                 </div>
             </section>
@@ -992,7 +1019,7 @@
                             <input type="password" id="user-password" placeholder="Masukkan password baru">
                         </div>
                         
-                        <button class="btn">
+                        <button class="btn" id="save-settings-btn">
                             <i class="fas fa-save"></i> Simpan Perubahan
                         </button>
                     </div>
@@ -1004,7 +1031,7 @@
                     <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
                         <span>Notifikasi Profit Harian</span>
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" checked id="profit-notification">
                             <span class="slider round"></span>
                         </label>
                     </div>
@@ -1012,7 +1039,7 @@
                     <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
                         <span>Notifikasi Penarikan</span>
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" checked id="withdrawal-notification">
                             <span class="slider round"></span>
                         </label>
                     </div>
@@ -1051,6 +1078,7 @@
                                     <th>Bank</th>
                                     <th>No. Rekening</th>
                                     <th>Jumlah</th>
+                                    <th>Tanggal</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -1105,9 +1133,9 @@
             <div style="text-align: center; padding: 20px 0;">
                 <i class="fas fa-gift" style="font-size: 60px; color: var(--success); margin-bottom: 20px;"></i>
                 <h3 style="margin-bottom: 10px;">Bonus Selamat Datang</h3>
-                <p style="margin-bottom: 20px; color: var(--gray);">Anda mendapatkan bonus Rp 20.000 untuk memulai investasi Anda!</p>
+                <p style="margin-bottom: 20px; color: var(--gray);">Anda mendapatkan saldo awal Rp 50.000 untuk memulai investasi Anda!</p>
                 <button id="claim-bonus-btn" class="btn btn-success">
-                    <i class="fas fa-gift"></i> Klaim Bonus
+                    <i class="fas fa-gift"></i> Terima Bonus
                 </button>
             </div>
         </div>
@@ -1125,9 +1153,9 @@
     <script>
         // Data aplikasi
         let userData = {
-            saldo: 1250000,
+            saldo: 50000,
             currentLevel: null,
-            dailyProfit: 0,
+            hourlyProfit: 0,
             totalProfit: 0,
             activeInvestment: false,
             withdrawableBalance: 0,
@@ -1139,15 +1167,16 @@
                 accountNumber: '',
                 accountName: ''
             },
-            lastProfitDate: null
+            lastProfitTime: null,
+            profitTimer: null
         };
         
         // Level data
         const levelData = {
-            1: { profit: 20000, minInvestment: 100000, minWithdrawal: 50000 },
-            2: { profit: 30000, minInvestment: 200000, minWithdrawal: 50000 },
-            3: { profit: 50000, minInvestment: 500000, minWithdrawal: 100000 },
-            4: { profit: 100000, minInvestment: 1000000, minWithdrawal: 200000 }
+            1: { profit: 10000, minInvestment: 50000, minWithdrawal: 20000 },
+            2: { profit: 15000, minInvestment: 100000, minWithdrawal: 30000 },
+            3: { profit: 25000, minInvestment: 250000, minWithdrawal: 50000 },
+            4: { profit: 50000, minInvestment: 500000, minWithdrawal: 100000 }
         };
         
         // Admin credentials
@@ -1178,6 +1207,9 @@
         const adminNav = document.getElementById('admin-nav');
         const usersTable = document.getElementById('users-table');
         const withdrawalsTable = document.getElementById('withdrawals-table');
+        const profitTimerCard = document.getElementById('profit-timer-card');
+        const profitTimerDisplay = document.getElementById('profit-timer');
+        const saveSettingsBtn = document.getElementById('save-settings-btn');
         
         // Authentication Tabs
         authTabs.forEach(tab => {
@@ -1233,28 +1265,30 @@
                     userData = { ...userData, ...users[email].userData };
                     userData.isLoggedIn = true;
                     
-                    // Calculate daily profit if investment is active
-                    if (userData.activeInvestment && userData.lastProfitDate) {
-                        const lastProfitDate = new Date(userData.lastProfitDate);
-                        const today = new Date();
-                        const daysPassed = Math.floor((today - lastProfitDate) / (1000 * 60 * 60 * 24));
+                    // Calculate hourly profit if investment is active
+                    if (userData.activeInvestment && userData.lastProfitTime) {
+                        const lastProfitTime = new Date(userData.lastProfitTime).getTime();
+                        const now = new Date().getTime();
+                        const hoursPassed = Math.floor((now - lastProfitTime) / (1000 * 60 * 60));
                         
-                        if (daysPassed > 0) {
-                            // Add profit for each day passed
-                            for (let i = 0; i < daysPassed; i++) {
-                                userData.totalProfit += userData.dailyProfit;
-                                userData.withdrawableBalance += userData.dailyProfit;
-                            }
+                        if (hoursPassed > 0) {
+                            // Add profit for each hour passed
+                            const totalProfit = userData.hourlyProfit * hoursPassed;
+                            userData.totalProfit += totalProfit;
+                            userData.withdrawableBalance += totalProfit;
                             
-                            // Update last profit date
-                            userData.lastProfitDate = today.toISOString();
+                            // Update last profit time
+                            userData.lastProfitTime = new Date().toISOString();
                             
                             // Save updated data
                             users[email].userData = userData;
                             localStorage.setItem('wealthGrowUsers', JSON.stringify(users));
                             
-                            showNotification('Profit Harian', `Anda mendapatkan profit harian sebesar Rp ${(userData.dailyProfit * daysPassed).toLocaleString()}`, 'success');
+                            showNotification('Profit Otomatis', `Anda mendapatkan profit sebesar Rp ${totalProfit.toLocaleString()} dari ${hoursPassed} jam terakhir`, 'success');
                         }
+                        
+                        // Start profit timer
+                        startProfitTimer();
                     }
                     
                     // Update UI with user data
@@ -1311,9 +1345,9 @@
                 
                 // Create new user with initial data
                 const initialUserData = {
-                    saldo: 1250000,
+                    saldo: 50000,
                     currentLevel: null,
-                    dailyProfit: 0,
+                    hourlyProfit: 0,
                     totalProfit: 0,
                     activeInvestment: false,
                     withdrawableBalance: 0,
@@ -1324,7 +1358,7 @@
                         accountNumber: '',
                         accountName: ''
                     },
-                    lastProfitDate: null
+                    lastProfitTime: null
                 };
                 
                 users[email] = {
@@ -1374,11 +1408,16 @@
                 }
             }
             
+            // Stop profit timer
+            if (userData.profitTimer) {
+                clearInterval(userData.profitTimer);
+            }
+            
             // Reset user data
             userData = {
-                saldo: 1250000,
+                saldo: 50000,
                 currentLevel: null,
-                dailyProfit: 0,
+                hourlyProfit: 0,
                 totalProfit: 0,
                 activeInvestment: false,
                 withdrawableBalance: 0,
@@ -1390,7 +1429,8 @@
                     accountNumber: '',
                     accountName: ''
                 },
-                lastProfitDate: null
+                lastProfitTime: null,
+                profitTimer: null
             };
             
             // Reset forms and show auth
@@ -1441,7 +1481,7 @@
                 
                 // Update selected level
                 userData.currentLevel = parseInt(card.getAttribute('data-level'));
-                userData.dailyProfit = parseInt(card.getAttribute('data-profit'));
+                userData.hourlyProfit = parseInt(card.getAttribute('data-profit'));
                 
                 // Update dashboard
                 updateDashboard();
@@ -1466,7 +1506,13 @@
             userData.saldo -= level.minInvestment;
             userData.activeInvestment = true;
             userData.withdrawableBalance += level.minInvestment;
-            userData.lastProfitDate = new Date().toISOString();
+            userData.lastProfitTime = new Date().toISOString();
+            
+            // Show profit timer
+            profitTimerCard.style.display = 'block';
+            
+            // Start profit timer
+            startProfitTimer();
             
             // Update dashboard
             updateDashboard();
@@ -1527,6 +1573,7 @@
             const withdrawal = {
                 amount: withdrawAmount,
                 date: new Date().toLocaleDateString('id-ID'),
+                time: new Date().toLocaleTimeString('id-ID'),
                 bankDetails: userData.bankDetails,
                 status: 'pending'
             };
@@ -1559,21 +1606,17 @@
         
         // Claim Bonus Button
         claimBonusBtn.addEventListener('click', () => {
-            userData.saldo += 20000;
-            updateDashboard();
-            
             // Mark user as not new anymore
             const email = document.getElementById('user-email').value;
             const users = JSON.parse(localStorage.getItem('wealthGrowUsers')) || {};
             
             if (users[email]) {
-                users[email].userData = userData;
                 users[email].isNewUser = false;
                 localStorage.setItem('wealthGrowUsers', JSON.stringify(users));
             }
             
             welcomeModal.classList.remove('show');
-            showNotification('Bonus Diklaim', 'Anda mendapatkan bonus Rp 20.000!', 'success');
+            showNotification('Selamat Datang', 'Selamat bergabung di WealthGrow!', 'success');
         });
         
         // Modal Close
@@ -1590,11 +1633,36 @@
             }
         });
         
+        // Save Settings Button
+        saveSettingsBtn.addEventListener('click', () => {
+            const name = document.getElementById('user-name').value;
+            const email = document.getElementById('user-email').value;
+            const password = document.getElementById('user-password').value;
+            
+            if (!userData.isAdmin) {
+                const users = JSON.parse(localStorage.getItem('wealthGrowUsers')) || {};
+                
+                if (users[email]) {
+                    users[email].name = name;
+                    
+                    if (password) {
+                        users[email].password = password;
+                    }
+                    
+                    localStorage.setItem('wealthGrowUsers', JSON.stringify(users));
+                    
+                    userAvatar.textContent = name.split(' ').map(n => n[0]).join('').toUpperCase();
+                }
+            }
+            
+            showNotification('Pengaturan Disimpan', 'Perubahan berhasil disimpan', 'success');
+        });
+        
         // Update Dashboard
         function updateDashboard() {
             document.getElementById('saldo-amount').textContent = userData.saldo.toLocaleString();
             document.getElementById('current-level').textContent = userData.currentLevel ? `Level ${userData.currentLevel}` : '-';
-            document.getElementById('daily-profit').textContent = `Rp ${userData.dailyProfit.toLocaleString()}`;
+            document.getElementById('hourly-profit').textContent = `Rp ${userData.hourlyProfit.toLocaleString()}`;
             document.getElementById('total-profit').textContent = `Rp ${userData.totalProfit.toLocaleString()}`;
             document.getElementById('active-investment').textContent = userData.activeInvestment ? 'Aktif' : 'Tidak Aktif';
             document.getElementById('withdrawable-balance').textContent = `Rp ${userData.withdrawableBalance.toLocaleString()}`;
@@ -1640,7 +1708,7 @@
                     <div class="history-item">
                         <div>
                             <div class="history-amount">Rp ${item.amount.toLocaleString()}</div>
-                            <div class="history-date">${item.date} - ${item.bankDetails.bankName} - ${item.bankDetails.accountNumber}</div>
+                            <div class="history-date">${item.date} ${item.time} - ${item.bankDetails.bankName} - ${item.bankDetails.accountNumber}</div>
                         </div>
                         <div class="${statusClass}">
                             ${statusText}
@@ -1689,6 +1757,7 @@
                                 <td>${withdrawal.bankDetails.bankName}</td>
                                 <td>${withdrawal.bankDetails.accountNumber}</td>
                                 <td>Rp ${withdrawal.amount.toLocaleString()}</td>
+                                <td>${withdrawal.date} ${withdrawal.time}</td>
                                 <td class="status-pending">Menunggu</td>
                                 <td>
                                     <button class="btn btn-success" style="padding: 5px 10px; font-size: 12px; margin-right: 5px;" 
@@ -1709,6 +1778,52 @@
             withdrawalsTable.innerHTML = withdrawalsHTML;
         }
         
+        // Start Profit Timer
+        function startProfitTimer() {
+            if (userData.profitTimer) {
+                clearInterval(userData.profitTimer);
+            }
+            
+            let timeLeft = 60 * 60; // 1 hour in seconds
+            
+            userData.profitTimer = setInterval(() => {
+                timeLeft--;
+                
+                if (timeLeft <= 0) {
+                    // Add profit
+                    userData.totalProfit += userData.hourlyProfit;
+                    userData.withdrawableBalance += userData.hourlyProfit;
+                    userData.lastProfitTime = new Date().toISOString();
+                    
+                    // Update dashboard
+                    updateDashboard();
+                    
+                    // Save to localStorage
+                    if (!userData.isAdmin) {
+                        const email = document.getElementById('user-email').value;
+                        const users = JSON.parse(localStorage.getItem('wealthGrowUsers')) || {};
+                        
+                        if (users[email]) {
+                            users[email].userData = userData;
+                            localStorage.setItem('wealthGrowUsers', JSON.stringify(users));
+                        }
+                    }
+                    
+                    showNotification('Profit Ditambahkan', `Anda mendapatkan profit sebesar Rp ${userData.hourlyProfit.toLocaleString()}`, 'success');
+                    
+                    // Reset timer
+                    timeLeft = 60 * 60;
+                }
+                
+                // Update timer display
+                const hours = Math.floor(timeLeft / 3600);
+                const minutes = Math.floor((timeLeft % 3600) / 60);
+                const seconds = timeLeft % 60;
+                
+                profitTimerDisplay.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+        
         // Admin Functions
         window.deleteUser = function(email) {
             if (confirm(`Apakah Anda yakin ingin menghapus pengguna ${email}?`)) {
@@ -1726,16 +1841,18 @@
             
             if (user) {
                 // Find the pending withdrawal and update its status
-                user.userData.withdrawalHistory.forEach(withdrawal => {
-                    if (withdrawal.amount === amount && withdrawal.status === 'pending') {
-                        withdrawal.status = 'approved';
-                    }
-                });
+                const withdrawal = user.userData.withdrawalHistory.find(w => 
+                    w.amount === amount && w.status === 'pending'
+                );
                 
-                // Update user data
-                localStorage.setItem('wealthGrowUsers', JSON.stringify(users));
-                updateAdminPanel();
-                showNotification('Penarikan Disetujui', `Penarikan Rp ${amount.toLocaleString()} untuk ${user.name} telah disetujui`, 'success');
+                if (withdrawal) {
+                    withdrawal.status = 'approved';
+                    
+                    // Update user data
+                    localStorage.setItem('wealthGrowUsers', JSON.stringify(users));
+                    updateAdminPanel();
+                    showNotification('Penarikan Disetujui', `Penarikan Rp ${amount.toLocaleString()} untuk ${user.name} telah disetujui`, 'success');
+                }
             }
         };
         
@@ -1745,18 +1862,20 @@
             
             if (user) {
                 // Find the pending withdrawal and update its status
-                user.userData.withdrawalHistory.forEach(withdrawal => {
-                    if (withdrawal.amount === amount && withdrawal.status === 'pending') {
-                        withdrawal.status = 'rejected';
-                        // Return the amount to withdrawable balance
-                        user.userData.withdrawableBalance += amount;
-                    }
-                });
+                const withdrawal = user.userData.withdrawalHistory.find(w => 
+                    w.amount === amount && w.status === 'pending'
+                );
                 
-                // Update user data
-                localStorage.setItem('wealthGrowUsers', JSON.stringify(users));
-                updateAdminPanel();
-                showNotification('Penarikan Ditolak', `Penarikan Rp ${amount.toLocaleString()} untuk ${user.name} telah ditolak`, 'success');
+                if (withdrawal) {
+                    withdrawal.status = 'rejected';
+                    // Return the amount to withdrawable balance
+                    user.userData.withdrawableBalance += amount;
+                    
+                    // Update user data
+                    localStorage.setItem('wealthGrowUsers', JSON.stringify(users));
+                    updateAdminPanel();
+                    showNotification('Penarikan Ditolak', `Penarikan Rp ${amount.toLocaleString()} untuk ${user.name} telah ditolak`, 'success');
+                }
             }
         };
         
